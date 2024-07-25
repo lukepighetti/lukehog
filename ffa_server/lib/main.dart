@@ -1,5 +1,6 @@
 import 'package:ffa_server/helpers/responses.dart';
 import 'package:ffa_server/middleware/mapper_exception_middleware.dart';
+import 'package:ffa_server/models/api_post_batch.dart';
 import 'package:ffa_server/models/api_post_event.dart';
 import 'package:ffa_server/services/database.dart';
 import 'package:shelf/shelf.dart';
@@ -16,7 +17,14 @@ void main(List<String> arguments) async {
     final body = await request.readAsString();
     final event = ApiPostEventMapper.fromJson(body);
     await db.ingestEvent(appId, event);
-    return Responses.mappableClass(event);
+    return Responses.okEmpty();
+  });
+
+  app.post('/batch/<appId>', (Request request, String appId) async {
+    final body = await request.readAsString();
+    final batch = ApiPostBatchMapper.fromJson(body);
+    await db.ingestBatch(appId, batch.events);
+    return Responses.okEmpty();
   });
 
   app.get('/events/distinct/<appId>', (Request request, String appId) async {

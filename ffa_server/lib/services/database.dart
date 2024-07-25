@@ -55,20 +55,7 @@ class EventDatabase {
   }
 
   Future<void> ingestEvent(String appId, ApiPostEvent event) async {
-    final db = await _getDb(appId);
-    final x = event;
-    db.execute('''
-      INSERT INTO events (appId, event, userId, sessionId, properties, timestamp, debug)
-      VALUES (?, ?, ?, ?, ?, ?, ?);
-    ''', [
-      appId,
-      x.event,
-      x.userId,
-      x.sessionId,
-      jsonEncode(x.properties ?? {}),
-      (x.timestamp ?? DateTime.now()).toUtc().toIso8601String(),
-      x.debug ?? false,
-    ]);
+    return ingestBatch(appId, [event]);
   }
 
   Future<File?> getSqliteFile(String appId) async {
@@ -124,5 +111,27 @@ class EventDatabase {
         "debug": debug,
       },
     };
+  }
+
+  Future<void> ingestBatch(String appId, List<ApiPostEvent> events) async {
+    final db = await _getDb(appId);
+    final stm = db.prepare('''
+        INSERT INTO events (appId, event, userId, sessionId, properties, timestamp, debug)
+        VALUES (?, ?, ?, ?, ?, ?, ?);
+      ''');
+
+    for (final x in events) {
+      stm.execute(
+        [
+          appId,
+          x.event,
+          x.userId,
+          x.sessionId,
+          jsonEncode(x.properties ?? {}),
+          (x.timestamp ?? DateTime.now()).toUtc().toIso8601String(),
+          x.debug ?? false,
+        ],
+      );
+    }
   }
 }

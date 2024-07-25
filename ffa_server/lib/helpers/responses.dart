@@ -15,6 +15,10 @@ class Responses {
     return Responses.json(object.toMap());
   }
 
+  static Response okEmpty() {
+    return Response.ok('');
+  }
+
   static Response file(File file) {
     return Response.ok(file.openRead(), headers: {
       HttpHeaders.contentTypeHeader: 'application/octet-stream',
