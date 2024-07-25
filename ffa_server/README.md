@@ -2,15 +2,15 @@
 
 ## features
 
-- return an unused project_id
-- single & batch ingest events
-- save events to individual sqlite databases keyed on project_id
-- download sqlite file
-- view table of
-    - unique sessions
-    - unique users
-    - count of each event type
-    - grouped by day, sorted by day descending
+- [x] return an unused appId
+- [x] single & batch ingest events
+- [x] save events to individual sqlite databases keyed on appId
+- [x] download sqlite file
+- [x] view table of
+    - [x] unique sessions
+    - [x] unique users
+    - [x] count of each event type
+    - [x] grouped by day, sorted by day descending
 
 ## acceptable limitations
 
