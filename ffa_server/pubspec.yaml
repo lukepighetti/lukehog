@@ -1,15 +1,19 @@
 name: ffa_server
-description: A sample command-line application.
-version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+description: Simple multi-tenant analytics server
+version: 0.1.0
 
 environment:
   sdk: ^3.4.4
 
-# Add regular dependencies here.
 dependencies:
-  # path: ^1.8.0
+  dart_mappable: ^4.2.2
+  shelf_router: ^1.1.4
+  shelf: ^1.4.2
+  sqlite3: ^2.4.2
+  path: ^1.9.0
 
 dev_dependencies:
+  build_runner: ^2.4.11
+  dart_mappable_builder: ^4.2.3
   lints: ^3.0.0
   test: ^1.24.0

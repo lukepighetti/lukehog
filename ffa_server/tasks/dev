@@ -1,0 +1,1 @@
+npx -y nodemon --watch . --ext dart --exec "dart lib/main.dart"
