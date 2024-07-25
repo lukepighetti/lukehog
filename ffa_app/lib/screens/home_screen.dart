@@ -1,4 +1,5 @@
 import 'package:ffa_app/di.dart';
+import 'package:ffa_app/extensions.dart';
 import 'package:ffa_app/views/example_syntax_view.dart';
 import 'package:flutter/material.dart';
 import 'package:context_watch/context_watch.dart';
@@ -95,10 +96,27 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             )
           else
-            Text("show events table")
-          // Text(vm.seenAppIds.toString()),
-          // Text(vm.visibleAppId.toString()),
-          // Text(vm.visibleAppEvents.toString()),
+            DataTable(
+              columns: [
+                DataColumn(label: Text("Day")),
+                for (final x in state.visibleAppEvents.first.columns.entries)
+                  DataColumn(label: Text(x.key)),
+              ],
+              rows: [
+                for (final row in state.visibleAppEvents)
+                  DataRow(
+                    cells: [
+                      DataCell(
+                        Text(row.day.toYYYYMMDDString()),
+                      ),
+                      for (final cell in row.columns.entries)
+                        DataCell(
+                          Text(cell.value.toString()),
+                        ),
+                    ],
+                  ),
+              ],
+            ),
         ],
       ),
     );
