@@ -86,9 +86,43 @@ class EventDatabase {
 
     final result = db.select('''
       SELECT DISTINCT event
-      FROM events;
+      FROM events
+      ORDER BY event ASC;
     ''');
 
     return [for (final e in result) e['event'] as String];
+  }
+
+  Future<Map<String, dynamic>?> getDayBucketedData(String appId) async {
+    final distinctEvents = await getDistinctEvents(appId);
+    final debug = false;
+
+    // TODO: we're getting the file twice
+    final db = await _getDb(appId);
+
+    final dynamicColumns = [
+      for (final e in distinctEvents)
+        "COUNT(DISTINCT CASE WHEN event = '$e' THEN id END) as $e"
+    ].join(",\n");
+
+    final result = distinctEvents.isEmpty ? [] : db.select('''
+      SELECT
+        date(timestamp) as day,
+        COUNT(DISTINCT sessionId) as unique_sessions,
+        COUNT(DISTINCT userId) as unique_users,
+        $dynamicColumns
+      FROM events
+      WHERE appId=? AND debug=?
+      GROUP BY day
+      ORDER BY day DESC
+    ''', [appId, debug]);
+
+    return {
+      "data": result,
+      "context": {
+        "appId": appId,
+        "debug": debug,
+      },
+    };
   }
 }

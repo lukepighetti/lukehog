@@ -26,6 +26,11 @@ void main(List<String> arguments) async {
     return Response.ok(jsonEncode(x));
   });
 
+  app.get('/events/bucketed/<appId>', (Request request, String appId) async {
+    final x = await db.getDayBucketedData(appId);
+    return Response.ok(jsonEncode(x));
+  });
+
   app.get('/sqlite/<appId>', (Request request, String appId) async {
     final f = await db.getSqliteFile(appId);
     if (f == null) {
