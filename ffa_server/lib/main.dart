@@ -1,4 +1,5 @@
 import 'package:ffa_server/helpers/responses.dart';
+import 'package:ffa_server/middleware/cors_middleware.dart';
 import 'package:ffa_server/middleware/mapper_exception_middleware.dart';
 import 'package:ffa_server/models/api_post_batch.dart';
 import 'package:ffa_server/models/api_post_event.dart';
@@ -53,6 +54,7 @@ void main(List<String> arguments) async {
 
   final pipeline = Pipeline()
       .addMiddleware(mapperExceptionMiddleware())
+      .addMiddleware(corsMiddleware())
       .addHandler(app.call);
 
   final server = await io.serve(pipeline, '0.0.0.0', 8080);

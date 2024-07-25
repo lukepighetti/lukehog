@@ -1,19 +1,18 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:ffa_server/config.dart';
 import 'package:ffa_server/extensions.dart';
 import 'package:ffa_server/helpers/generate.dart';
 import 'package:ffa_server/models/api_post_event.dart';
 import 'package:sqlite3/sqlite3.dart';
 import 'package:path/path.dart' as p;
 
-final _kDebugMode = true; // TODO: remove this
-
 class EventDatabase {
   final dir = Directory('ffa_data');
 
   Future<void> initialize() async {
-    if (_kDebugMode) await dir.delete(recursive: true);
+    if (Config.debugMode) await dir.delete(recursive: true);
     if (!await dir.exists()) {
       await dir.create();
     }
