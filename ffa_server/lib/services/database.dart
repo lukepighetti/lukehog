@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ffa_server/models/api_create_event.dart';
+import 'package:ffa_server/models/api_post_event.dart';
 import 'package:sqlite3/sqlite3.dart';
 import 'package:path/path.dart' as p;
 
@@ -54,20 +54,20 @@ class EventDatabase {
     }
   }
 
-  Future<void> ingestEvent(ApiCreateEvent event) async {
-    final db = await _getDb(event.appId);
-    final x = event.fillDefaults();
+  Future<void> ingestEvent(String appId, ApiPostEvent event) async {
+    final db = await _getDb(appId);
+    final x = event;
     db.execute('''
       INSERT INTO events (appId, event, userId, sessionId, properties, timestamp, debug)
       VALUES (?, ?, ?, ?, ?, ?, ?);
     ''', [
-      x.appId,
+      appId,
       x.event,
       x.userId,
       x.sessionId,
-      jsonEncode(x.properties),
-      x.timestamp?.toUtc().toIso8601String(),
-      x.debug,
+      jsonEncode(x.properties ?? {}),
+      (x.timestamp ?? DateTime.now()).toUtc().toIso8601String(),
+      x.debug ?? false,
     ]);
   }
 

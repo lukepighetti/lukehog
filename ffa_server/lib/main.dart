@@ -1,6 +1,6 @@
 import 'package:ffa_server/helpers/responses.dart';
 import 'package:ffa_server/middleware/mapper_exception_middleware.dart';
-import 'package:ffa_server/models/api_create_event.dart';
+import 'package:ffa_server/models/api_post_event.dart';
 import 'package:ffa_server/services/database.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as io;
@@ -12,10 +12,10 @@ void main(List<String> arguments) async {
 
   await db.initialize();
 
-  app.post('/event', (Request request) async {
+  app.post('/event/<appId>', (Request request, String appId) async {
     final body = await request.readAsString();
-    final event = ApiCreateEventMapper.fromJson(body).fillDefaults();
-    await db.ingestEvent(event);
+    final event = ApiPostEventMapper.fromJson(body);
+    await db.ingestEvent(appId, event);
     return Responses.mappableClass(event);
   });
 
