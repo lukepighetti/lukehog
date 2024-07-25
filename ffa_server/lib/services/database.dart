@@ -80,4 +80,15 @@ class EventDatabase {
       return f;
     }
   }
+
+  Future<List<String>> getDistinctEvents(String appId) async {
+    final db = await _getDb(appId);
+
+    final result = db.select('''
+      SELECT DISTINCT event
+      FROM events;
+    ''');
+
+    return [for (final e in result) e['event'] as String];
+  }
 }

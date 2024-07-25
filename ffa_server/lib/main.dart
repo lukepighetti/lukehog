@@ -1,3 +1,4 @@
+import 'dart:convert';
 
 import 'package:ffa_server/helpers/responses.dart';
 import 'package:ffa_server/middleware/mapper_exception_middleware.dart';
@@ -18,6 +19,11 @@ void main(List<String> arguments) async {
     final event = ApiCreateEventMapper.fromJson(body).fillDefaults();
     await db.ingestEvent(event);
     return Response.ok(event.toJson());
+  });
+
+  app.get('/events/distinct/<appId>', (Request request, String appId) async {
+    final x = await db.getDistinctEvents(appId);
+    return Response.ok(jsonEncode(x));
   });
 
   app.get('/sqlite/<appId>', (Request request, String appId) async {
