@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:ffa_server/extensions.dart';
+import 'package:ffa_server/helpers/generate.dart';
 import 'package:ffa_server/models/api_post_event.dart';
 import 'package:sqlite3/sqlite3.dart';
 import 'package:path/path.dart' as p;
@@ -132,6 +134,17 @@ class EventDatabase {
           x.debug ?? false,
         ],
       );
+    }
+  }
+
+  Future<String> getAvailableAppId() async {
+    final appId = genAppId();
+    final f = await _getDbFile(appId);
+
+    if (await f.isEmpty()) {
+      return appId;
+    } else {
+      return getAvailableAppId();
     }
   }
 }

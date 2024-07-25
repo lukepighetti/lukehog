@@ -37,6 +37,11 @@ void main(List<String> arguments) async {
     return Responses.json(x);
   });
 
+  app.get('/appId', (Request request) async {
+    final x = await db.getAvailableAppId();
+    return Responses.json(x);
+  });
+
   app.get('/sqlite/<appId>', (Request request, String appId) async {
     final f = await db.getSqliteFile(appId);
     if (f == null) {
