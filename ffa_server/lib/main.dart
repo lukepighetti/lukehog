@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:ffa_server/helpers/responses.dart';
 import 'package:ffa_server/middleware/mapper_exception_middleware.dart';
 import 'package:ffa_server/models/api_create_event.dart';
@@ -18,17 +16,17 @@ void main(List<String> arguments) async {
     final body = await request.readAsString();
     final event = ApiCreateEventMapper.fromJson(body).fillDefaults();
     await db.ingestEvent(event);
-    return Response.ok(event.toJson());
+    return Responses.mappableClass(event);
   });
 
   app.get('/events/distinct/<appId>', (Request request, String appId) async {
     final x = await db.getDistinctEvents(appId);
-    return Response.ok(jsonEncode(x));
+    return Responses.json(x);
   });
 
   app.get('/events/bucketed/<appId>', (Request request, String appId) async {
     final x = await db.getDayBucketedData(appId);
-    return Response.ok(jsonEncode(x));
+    return Responses.json(x);
   });
 
   app.get('/sqlite/<appId>', (Request request, String appId) async {
