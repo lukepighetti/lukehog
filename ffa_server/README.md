@@ -22,6 +22,7 @@
 
 ## launch punchlist
 
+- [ ] sql TODOs
 - [?] shelf_letsencrypt
 - [?] shelf_helmet
 - [?] shelf_ratelimiter

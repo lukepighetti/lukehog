@@ -88,6 +88,7 @@ class EventDatabase {
     // TODO: we're getting the file twice
     final db = await _getDb(appId);
 
+    /// TODO: escape this sql, event name could be use for injection attack
     final dynamicColumns = [
       for (final e in distinctEvents)
         "COUNT(DISTINCT CASE WHEN event = '$e' THEN id END) as $e"
