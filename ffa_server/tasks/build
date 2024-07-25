@@ -1,0 +1,2 @@
+mkdir -p build
+dart compile exe lib/main.dart -o build/bin
