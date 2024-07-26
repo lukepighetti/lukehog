@@ -3,6 +3,7 @@ import 'package:ffa_app/extensions.dart';
 import 'package:ffa_app/views/example_syntax_view.dart';
 import 'package:flutter/material.dart';
 import 'package:context_watch/context_watch.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.appId});
@@ -32,6 +33,10 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void handleDownloadSqlite() {
+    launchUrl(di.apiClient.getSqliteDownloadUrl(widget.appId));
+  }
+
   @override
   Widget build(BuildContext context) {
     final vm = di.appViewModel..watch(context);
@@ -39,6 +44,14 @@ class _HomeScreenState extends State<HomeScreen> {
     final hasEvents = state.visibleAppEvents.isNotEmpty;
 
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: Icon(Icons.download),
+            onPressed: handleDownloadSqlite,
+          ),
+        ],
+      ),
       body: Stack(
         fit: StackFit.expand,
         children: [

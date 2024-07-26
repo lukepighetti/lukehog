@@ -24,4 +24,6 @@ class ApiClient {
         })
     ];
   }
+
+  Uri getSqliteDownloadUrl(String appId) => _baseUrl.resolve('/sqlite/$appId');
 }
