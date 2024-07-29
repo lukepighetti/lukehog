@@ -23,6 +23,15 @@ class MyApp extends StatelessWidget {
         theme: appTheme(),
         debugShowCheckedModeBanner: false,
         routerConfig: router,
+        builder: (context, child) {
+          return Banner(
+            message: "Tech Preview",
+            location: BannerLocation.bottomEnd,
+            textStyle: context.textForAnts,
+            color: context.colorPrimary,
+            child: child,
+          );
+        },
       ),
     );
   }
