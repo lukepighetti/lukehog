@@ -50,9 +50,15 @@ async function capture(event, userId) {
 }
 """;
 
+  late final curlCode = """
+curl -X POST https://ffa.com/event/${widget.appId} \\
+  --data '{"event":"test_event","userId":"fake_user"}'
+""";
+
   late final code = [
     (title: "Dart", syntax: Syntax.DART, code: dartCode),
     (title: "JavaScript", syntax: Syntax.JAVASCRIPT, code: javascriptCode),
+    (title: "curl", syntax: Syntax.YAML, code: curlCode),
   ];
 
   void handleTapCopyCodeButton() async {
