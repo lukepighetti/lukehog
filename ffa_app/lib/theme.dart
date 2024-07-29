@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const _primaryColor = Colors.blue;
+const _primaryColor = Colors.deepOrange;
 
 ThemeData appTheme() {
   return ThemeData(
-    brightness: Brightness.light,
-    colorScheme: ColorScheme.fromSeed(seedColor: _primaryColor),
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: _primaryColor,
+    ),
+    textTheme: GoogleFonts.outfitTextTheme(),
     cardTheme: CardTheme(
       elevation: 10,
       shadowColor: Colors.black26,

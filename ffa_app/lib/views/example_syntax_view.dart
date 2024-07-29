@@ -76,6 +76,7 @@ curl -X POST https://ffa.com/event/${widget.appId} \\
     tabController.watch(context);
 
     return Container(
+      constraints: BoxConstraints(maxWidth: 500),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: syntaxTheme.backgroundColor,

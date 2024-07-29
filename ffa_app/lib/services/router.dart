@@ -3,6 +3,7 @@ import 'package:ffa_app/screens/home_screen.dart';
 import 'package:go_router/go_router.dart';
 
 final router = GoRouter(
+  navigatorKey: di.navigatorKey,
   routes: [
     GoRoute(
       path: '/',
