@@ -15,7 +15,7 @@ class MadeWithLoveFooter extends StatelessWidget {
         IconButton.filledTonal(
           icon: Icon(PhosphorIcons.envelopeSimple()),
           onPressed: () {
-            launchUrlString('mailto:lukepighetti+unfck@gmail.com');
+            launchUrlString('mailto:lukepighetti+lukehog@gmail.com');
             // Analytics.tapSendEmail();
           },
         ),
