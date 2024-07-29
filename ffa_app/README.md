@@ -1,28 +1,31 @@
 # ffa_app
 
-
 ## Features
 
 - [ ] home screen
-    - [ ] logotype
-    - [ ] no appId
-        - [ ] auto-create appId
-    - [ ] any state
-        - [ ] switch between previously seen appIds
-        - [ ] rename app
-        - [ ] backup app name & id to .json file
-        - [ ] show "technical preview" banner
-    - [ ] no events
-        - [ ] quick start code example
-            - [ ] dart
-            - [ ] javascript
-            - [ ] curl
-        - [ ] button to check for events
-    - [ ] events
-        - [ ] show events bucketed by day
-        - [ ] show/hide/order events
-        - [ ] toggle heatmap on event
-    - [ ] footer
-        - [ ] source code
-        - [ ] email
-        - [ ] made with love
+    - [x] no appId state
+        - [x] auto-create appId
+    - [x] any state
+        - [x] logotype
+        - [ ] switch between previously seen appIds `v2`
+        - [ ] remove previously seen appId `v2`
+        - [ ] rename app `v2`
+        - [ ] backup app name & id to .json file `v2`
+        - [x] show "technical preview" banner
+        - [x] footer
+            - [x] source code
+            - [x] email
+            - [x] made with love
+    - [ ] no events state
+        - [x] quick start code example
+            - [x] dart
+            - [x] javascript
+            - [x] curl
+        - [x] button to check for events
+        - [ ] download recovery file
+    - [x] events state
+        - [x] show events bucketed by day
+        - [ ] show/hide/order events `v2`
+        - [ ] toggle heatmap on event `v2`
+- [ ] security
+    - [ ] separate appId and adminKey

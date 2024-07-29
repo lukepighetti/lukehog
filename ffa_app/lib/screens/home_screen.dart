@@ -1,6 +1,7 @@
 import 'package:ffa_app/di.dart';
 import 'package:ffa_app/extensions.dart';
 import 'package:ffa_app/views/example_syntax_view.dart';
+import 'package:ffa_app/views/made_with_love_footer.dart';
 import 'package:ffa_app/widgets/logotype.dart';
 import 'package:ffa_app/widgets/tech_preview_banner.dart';
 import 'package:flutter/material.dart';
@@ -156,6 +157,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
           ],
+        ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(24),
+          child: MadeWithLoveFooter(),
         ),
       ),
     );

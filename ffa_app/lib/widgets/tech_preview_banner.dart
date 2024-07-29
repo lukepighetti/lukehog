@@ -10,7 +10,7 @@ class TechPreviewBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Banner(
       message: "Tech Preview",
-      location: BannerLocation.bottomEnd,
+      location: BannerLocation.bottomStart,
       textStyle: context.textForAnts.copyWith(color: Colors.white),
       color: context.colorPrimary,
       child: child,
