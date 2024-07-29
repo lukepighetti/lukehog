@@ -14,7 +14,20 @@ class ExampleSyntaxView extends StatefulWidget {
 
 class _ExampleSyntaxViewState extends State<ExampleSyntaxView>
     with SingleTickerProviderStateMixin {
-  final syntaxTheme = SyntaxTheme.gravityDark();
+  /// Tokyo Night Storm
+  final syntaxTheme = SyntaxTheme(
+    backgroundColor: const Color(0xFF24283b),
+    baseStyle: TextStyle(fontFamily: 'courier', color: Color(0xFFa9b1d6)),
+    classStyle: TextStyle(color: Color(0xFF2AC3DE)),
+    commentStyle: TextStyle(color: Color(0xFF545C7E)),
+    constantStyle: TextStyle(color: Color(0xFFBBC2E0)),
+    keywordStyle: TextStyle(color: Color(0xFFBB9AF7)),
+    linesCountColor: Color(0xFFFFFFFF).withOpacity(.8),
+    numberStyle: TextStyle(color: Color(0xFFE0AF68)),
+    punctuationStyle: TextStyle(color: Color(0xFFBB9AF7)),
+    stringStyle: TextStyle(color: Color(0xFFA8CD76)),
+    zoomIconColor: Color(0xFFF8F6EB),
+  );
 
   late final tabController = TabController(length: code.length, vsync: this);
   var didCopy = false;
@@ -94,8 +107,6 @@ async function capture(event, userId) {
                       width: double.maxFinite,
                       height: 16 * 12,
                       child: SyntaxView(
-                        
-
                         code: x.code,
                         syntax: x.syntax,
                         syntaxTheme: syntaxTheme,
