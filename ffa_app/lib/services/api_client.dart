@@ -5,7 +5,7 @@ import 'package:ffa_app/data/key_pair.dart';
 import 'package:http/http.dart' as http;
 
 class ApiClient {
-  final _baseUrl = Uri.http('localhost:8080');
+  final _baseUrl = Uri.http('api.lukehog.com:443');
 
   Future<KeyPair> getAvailableKeyPair() async {
     final res = await http.get(_baseUrl.resolve('/keys/pair'));

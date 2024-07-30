@@ -23,7 +23,10 @@
 
 ## launch punchlist
 
+- [ ] handle ffa_data not existing on first start
+- [ ] include ffa_server.service file
+- [ ] Failed to load dynamic library 'libsqlite3.so'
 - [ ] sql TODOs
-- [?] shelf_letsencrypt
-- [?] shelf_helmet
-- [?] shelf_ratelimiter
+- [ ] shelf_letsencrypt
+- [ ] shelf_helmet
+- [ ] shelf_ratelimiter
