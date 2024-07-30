@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_syntax_view/flutter_syntax_view.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ExampleSyntaxView extends StatefulWidget {
   const ExampleSyntaxView({super.key, required this.appId});
@@ -139,7 +140,7 @@ curl -X POST https://ffa.com/event/${widget.appId} \\
                                 ),
                               )
                             : Icon(
-                                Icons.copy,
+                                PhosphorIcons.copy(),
                                 color: Colors.white,
                               ),
                       ),
