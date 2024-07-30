@@ -2,7 +2,7 @@
 
 ## Features
 
-- [ ] home screen
+- [x] home screen
     - [x] no appId state
         - [x] auto-create appId
     - [x] any state
@@ -27,7 +27,8 @@
         - [x] show events bucketed by day
         - [ ] show/hide/order events `v2`
         - [ ] toggle heatmap on event `v2`
-- [ ] security
-    - [ ] separate appId and adminKey
+- [x] security
+    - [x] separate appId and adminKey
+- [ ] deploy
 - [ ] sdk
 - [ ] dogfood
