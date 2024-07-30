@@ -5,3 +5,4 @@
 # project specific
 ffa_data
 build/
+.env

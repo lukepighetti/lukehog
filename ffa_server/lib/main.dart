@@ -1,3 +1,4 @@
+import 'package:ffa_server/config.dart';
 import 'package:ffa_server/helpers/generate.dart';
 import 'package:ffa_server/helpers/responses.dart';
 import 'package:ffa_server/middleware/cors_middleware.dart';
@@ -79,6 +80,7 @@ void main(List<String> arguments) async {
       .addMiddleware(corsMiddleware())
       .addHandler(app.call);
 
-  final server = await io.serve(pipeline, '0.0.0.0', 8080);
+  final server = await io.serve(pipeline, Config.address, Config.port);
+  print("${Config.address}:${Config.port}");
   print('serving on ${server.address.address}:${server.port}');
 }
