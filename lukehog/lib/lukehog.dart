@@ -58,6 +58,7 @@ library;
 
 import 'package:http/http.dart' as http;
 import 'package:nanoid2/nanoid2.dart';
+import 'package:retry/retry.dart';
 
 /// Dead simple analytics for any platform
 ///
@@ -113,16 +114,18 @@ class Lukehog {
   }) {
     _setSessionIdIfNeeded();
     _lastSent = DateTime.now();
-    return http.post(
-      _baseUri.resolve('/event/$appId'),
-      body: {
-        "event": event,
-        "userId": userId,
-        "sessionId": _sessionId,
-        "properties": properties,
-        "timestamp": (timestamp ?? DateTime.now()).toUtc(),
-        "debug": debug,
-      },
+    return retry(
+      () => http.post(
+        _baseUri.resolve('/event/$appId'),
+        body: {
+          "event": event,
+          "userId": userId,
+          "sessionId": _sessionId,
+          "properties": properties,
+          "timestamp": (timestamp ?? DateTime.now()).toUtc(),
+          "debug": debug,
+        },
+      ),
     );
   }
 }

@@ -54,3 +54,7 @@ button_tapped
 screen_viewed
 dialog_dismissed
 ```
+
+## TODO
+
+- [ ] track offline events by storing them in a batching durable queue
