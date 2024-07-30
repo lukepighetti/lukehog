@@ -1,5 +1,5 @@
 name: lukehog
-description: Simple analytics for pure dart projects
+description: Simple analytics for any Flutter platform, Dart environment and beyond
 version: 0.1.0
 repository: https://github.com/lukepighetti/lukehog
 homepage: https://lukehog.com
