@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final vm = di.appViewModel..watch(context);
     final state = vm.value;
-    final hasEvents = state.visibleAppEvents.isNotEmpty;
+    final hasEvents = state.hasEvents;
 
     return TechPreviewBanner(
       child: Scaffold(

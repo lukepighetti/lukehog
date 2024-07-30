@@ -9,6 +9,7 @@ final di = _Dependencies();
 class _Dependencies {
   Future<void> initialize() async {
     sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.clear();
     appViewModel.initialize();
   }
 

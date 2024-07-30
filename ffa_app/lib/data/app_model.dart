@@ -13,6 +13,8 @@ class AppModel with AppModelMappable {
 
   List<EventsRowModel> get visibleAppEvents => appEvents[visibleAppId] ?? [];
 
+  bool get hasEvents => visibleAppEvents.isNotEmpty;
+
   AppModel({
     required this.visibleAppId,
     required this.seenAppIds,
@@ -23,5 +25,4 @@ class AppModel with AppModelMappable {
       : visibleAppId = null,
         seenAppIds = {},
         appEvents = {};
-
 }

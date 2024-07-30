@@ -1,6 +1,6 @@
 import 'package:ffa_app/di.dart';
 import 'package:ffa_app/theme.dart';
-import 'package:ffa_app/views/example_syntax_view.dart';
+import 'package:ffa_app/views/quick_start_view.dart';
 import 'package:flutter/material.dart';
 // import 'package:unfck/di.dart';
 // import 'package:unfck/screens/settings_screen.dart';
@@ -15,9 +15,7 @@ class NavigationService {
   // }
 
   Future<void> showExampleCodeDialog() async {
-    final appId = di.appViewModel.value.visibleAppId;
-    _showDialog(context, ExampleSyntaxView(appId: appId!),
-        title: "Example code");
+    showDialog(context: context, builder: (x) => QuickStartView());
   }
 
   // Future<ThingModel?> showEditThingDialog({ThingModel? thing}) async {
@@ -40,10 +38,7 @@ class NavigationService {
       builder: (_) => Padding(
         padding: const EdgeInsets.all(24),
         child: Center(
-          child: Material(
-            clipBehavior: Clip.antiAlias,
-            borderRadius: BorderRadius.circular(20),
-            elevation: 10,
+          child: Card(
             child: IntrinsicWidth(
               child: Column(
                 mainAxisSize: MainAxisSize.min,

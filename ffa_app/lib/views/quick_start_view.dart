@@ -35,6 +35,8 @@ class _QuickStartViewState extends State<QuickStartView> {
 
     await Future.delayed(Duration(milliseconds: 500));
 
+    if (!mounted) return;
+
     setState(() {
       didRefresh = true;
       isLoading = false;
@@ -44,6 +46,7 @@ class _QuickStartViewState extends State<QuickStartView> {
   @override
   Widget build(BuildContext context) {
     final appId = di.appViewModel.watch(context).visibleAppId!;
+    final hasEvents = di.appViewModel.watch(context).hasEvents;
 
     return Center(
       child: Container(
@@ -62,12 +65,12 @@ class _QuickStartViewState extends State<QuickStartView> {
                 children: [
                   Text(
                     "Quick Start",
-                    style: Theme.of(context).textTheme.headlineLarge,
+                    style: context.textHeadline,
                   ),
                   SizedBox(height: 8),
                   Text(
                     "1. Save your recovery file",
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    style: context.textBody,
                   ),
                   SizedBox(height: 12),
                   Row(
@@ -93,36 +96,38 @@ class _QuickStartViewState extends State<QuickStartView> {
                   SizedBox(height: 24),
                   Text(
                     "2. Capture an event",
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    style: context.textBody,
                   ),
                   SizedBox(height: 12),
                   ExampleSyntaxView(appId: appId),
-                  SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      FilledButton.icon(
-                        onPressed: isLoading ? null : handleTapRefresh,
-                        icon: didRefresh
-                            ? Icon(PhosphorIcons.arrowCounterClockwise())
-                            : null,
-                        label: Text(
-                          didRefresh ? "Try again" : "I sent an event",
-                        ),
-                      ),
-                      SizedBox(width: 16),
-                      Expanded(
-                        child: Text(
-                          didRefresh
-                              ? "We haven't received any events yet!"
-                              : "",
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.error,
+                  if (!hasEvents) ...[
+                    SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        FilledButton.icon(
+                          onPressed: isLoading ? null : handleTapRefresh,
+                          icon: didRefresh
+                              ? Icon(PhosphorIcons.arrowCounterClockwise())
+                              : null,
+                          label: Text(
+                            didRefresh ? "Try again" : "I sent an event",
                           ),
                         ),
-                      ),
-                    ],
-                  )
+                        SizedBox(width: 16),
+                        Expanded(
+                          child: Text(
+                            didRefresh
+                                ? "We haven't received any events yet!"
+                                : "",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.error,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ]
                 ],
               ),
             ),
