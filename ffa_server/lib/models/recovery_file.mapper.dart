@@ -20,16 +20,21 @@ class RecoveryFileMapper extends ClassMapperBase<RecoveryFile> {
   @override
   final String id = 'RecoveryFile';
 
+  static String _$adminKey(RecoveryFile v) => v.adminKey;
+  static const Field<RecoveryFile, String> _f$adminKey =
+      Field('adminKey', _$adminKey);
   static String _$appId(RecoveryFile v) => v.appId;
   static const Field<RecoveryFile, String> _f$appId = Field('appId', _$appId);
 
   @override
   final MappableFields<RecoveryFile> fields = const {
+    #adminKey: _f$adminKey,
     #appId: _f$appId,
   };
 
   static RecoveryFile _instantiate(DecodingData data) {
-    return RecoveryFile(appId: data.dec(_f$appId));
+    return RecoveryFile(
+        adminKey: data.dec(_f$adminKey), appId: data.dec(_f$appId));
   }
 
   @override
@@ -84,7 +89,7 @@ extension RecoveryFileValueCopy<$R, $Out>
 
 abstract class RecoveryFileCopyWith<$R, $In extends RecoveryFile, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? appId});
+  $R call({String? adminKey, String? appId});
   RecoveryFileCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -97,11 +102,14 @@ class _RecoveryFileCopyWithImpl<$R, $Out>
   late final ClassMapperBase<RecoveryFile> $mapper =
       RecoveryFileMapper.ensureInitialized();
   @override
-  $R call({String? appId}) =>
-      $apply(FieldCopyWithData({if (appId != null) #appId: appId}));
+  $R call({String? adminKey, String? appId}) => $apply(FieldCopyWithData({
+        if (adminKey != null) #adminKey: adminKey,
+        if (appId != null) #appId: appId
+      }));
   @override
-  RecoveryFile $make(CopyWithData data) =>
-      RecoveryFile(appId: data.get(#appId, or: $value.appId));
+  RecoveryFile $make(CopyWithData data) => RecoveryFile(
+      adminKey: data.get(#adminKey, or: $value.adminKey),
+      appId: data.get(#appId, or: $value.appId));
 
   @override
   RecoveryFileCopyWith<$R2, RecoveryFile, $Out2> $chain<$R2, $Out2>(

@@ -1,4 +1,5 @@
 import 'package:context_watch/context_watch.dart';
+import 'package:ffa_app/di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_syntax_view/flutter_syntax_view.dart';
@@ -6,9 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ExampleSyntaxView extends StatefulWidget {
-  const ExampleSyntaxView({super.key, required this.appId});
-
-  final String appId;
+  const ExampleSyntaxView({super.key});
 
   @override
   State<ExampleSyntaxView> createState() => _ExampleSyntaxViewState();
@@ -31,40 +30,42 @@ class _ExampleSyntaxViewState extends State<ExampleSyntaxView>
     zoomIconColor: Color(0xFFF8F6EB),
   );
 
-  late final tabController = TabController(length: code.length, vsync: this);
+  late final tabController =
+      TabController(length: code('fake').length, vsync: this);
   var didCopy = false;
 
-  late final dartCode = """
+  List<({String code, Syntax syntax, String title})> code(String appId) {
+    late final dartCode = """
 import 'package:http/http.dart' as http;
 
 Future<void> capture(String event, String userId) => http.post(
-      Uri.parse('https://ffa.com/event/${widget.appId}'),
+      Uri.parse('https://ffa.com/event/$appId'),
       body: {"event": event, "userId": userId},
     );
 """;
 
-  late final javascriptCode = """
+    late final javascriptCode = """
 async function capture(event, userId) {
-  await fetch('https://ffa.com/event/${widget.appId}', {
+  await fetch('https://ffa.com/event/$appId', {
     method: 'POST',
     body: JSON.stringify({ event, userId })
   });
 }
 """;
 
-  late final curlCode = """
-curl -X POST https://ffa.com/event/${widget.appId} \\
+    late final curlCode = """
+curl -X POST https://ffa.com/event/$appId \\
   --data '{"event":"test_event","userId":"fake_user"}'
 """;
+    return [
+      (title: "Dart", syntax: Syntax.DART, code: dartCode),
+      (title: "JavaScript", syntax: Syntax.JAVASCRIPT, code: javascriptCode),
+      (title: "curl", syntax: Syntax.YAML, code: curlCode),
+    ];
+  }
 
-  late final code = [
-    (title: "Dart", syntax: Syntax.DART, code: dartCode),
-    (title: "JavaScript", syntax: Syntax.JAVASCRIPT, code: javascriptCode),
-    (title: "curl", syntax: Syntax.YAML, code: curlCode),
-  ];
-
-  void handleTapCopyCodeButton() async {
-    final code = this.code[tabController.index];
+  void handleTapCopyCodeButton(String appId) async {
+    final code = this.code(appId)[tabController.index];
     await Clipboard.setData(ClipboardData(text: code.code));
     setState(() => didCopy = true);
   }
@@ -75,6 +76,7 @@ curl -X POST https://ffa.com/event/${widget.appId} \\
 
   @override
   Widget build(BuildContext context) {
+    final appId = di.appViewModel.watch(context).visibleAppId ?? '<appId>';
     tabController.watch(context);
 
     return Container(
@@ -98,7 +100,7 @@ curl -X POST https://ffa.com/event/${widget.appId} \\
             indicatorColor: syntaxTheme.keywordStyle!.color,
             dividerColor: syntaxTheme.commentStyle!.color,
             tabs: [
-              for (final x in code)
+              for (final x in code(appId))
                 Tab(
                   child: Text(
                     x.title,
@@ -109,7 +111,7 @@ curl -X POST https://ffa.com/event/${widget.appId} \\
           IndexedStack(
             index: tabController.index,
             children: [
-              for (final x in code)
+              for (final x in code(appId))
                 Stack(
                   children: [
                     SizedBox(
@@ -130,7 +132,7 @@ curl -X POST https://ffa.com/event/${widget.appId} \\
                       bottom: 10,
                       right: 10,
                       child: IconButton(
-                        onPressed: handleTapCopyCodeButton,
+                        onPressed: () => handleTapCopyCodeButton(appId),
                         icon: didCopy
                             ? Text(
                                 "Copied!",

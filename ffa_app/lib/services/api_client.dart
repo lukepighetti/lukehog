@@ -1,18 +1,24 @@
 import 'dart:convert';
 
 import 'package:ffa_app/data/events_row_model.dart';
+import 'package:ffa_app/data/key_pair.dart';
 import 'package:http/http.dart' as http;
 
 class ApiClient {
   final _baseUrl = Uri.http('localhost:8080');
 
-  Future<String> getAvailableAppId() async {
-    final res = await http.get(_baseUrl.resolve('/appId'));
-    return jsonDecode(res.body);
+  Future<KeyPair> getAvailableKeyPair() async {
+    final res = await http.get(_baseUrl.resolve('/keys/pair'));
+    return KeyPairMapper.fromJson(res.body);
   }
 
-  Future<List<EventsRowModel>> getDayBucketedData(String appId) async {
-    final res = await http.get(_baseUrl.resolve('/events/bucketed/$appId'));
+  Future<KeyPair> getKeyPairFromAdminKey(String adminKey) async {
+    final res = await http.get(_baseUrl.resolve('/keys/admin/$adminKey'));
+    return KeyPairMapper.fromJson(res.body);
+  }
+
+  Future<List<EventsRowModel>> getDayBucketedData(String adminKey) async {
+    final res = await http.get(_baseUrl.resolve('/events/bucketed/$adminKey'));
     final jsonMap = jsonDecode(res.body);
     final eventsMap = jsonMap["data"] as List;
 
@@ -25,8 +31,9 @@ class ApiClient {
     ];
   }
 
-  Uri getSqliteDownloadUrl(String appId) => _baseUrl.resolve('/sqlite/$appId');
+  Uri getSqliteDownloadUrl(String adminKey) =>
+      _baseUrl.resolve('/sqlite/$adminKey');
 
-  Uri getRecoveryDownloadUrl(String appId) =>
-      _baseUrl.resolve('/recovery/$appId');
+  Uri getRecoveryDownloadUrl(String adminKey) =>
+      _baseUrl.resolve('/recovery/$adminKey');
 }

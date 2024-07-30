@@ -1,8 +1,8 @@
-import 'package:ffa_server/extensions.dart';
 import 'package:ffa_server/helpers/generate.dart';
 import 'package:ffa_server/helpers/responses.dart';
 import 'package:ffa_server/middleware/cors_middleware.dart';
 import 'package:ffa_server/middleware/mapper_exception_middleware.dart';
+import 'package:ffa_server/models/api_key_pair_response.dart';
 import 'package:ffa_server/models/api_post_batch.dart';
 import 'package:ffa_server/models/api_post_event.dart';
 import 'package:ffa_server/models/recovery_file.dart';
@@ -31,22 +31,34 @@ void main(List<String> arguments) async {
     return Responses.okEmpty();
   });
 
-  app.get('/events/distinct/<appId>', (Request request, String appId) async {
+  app.get('/events/distinct/<adminKey>',
+      (Request request, String adminKey) async {
+    final appId = adminKeyToAppId(adminKey);
     final x = await db.getDistinctEvents(appId);
     return Responses.json(x);
   });
 
-  app.get('/events/bucketed/<appId>', (Request request, String appId) async {
+  app.get('/events/bucketed/<adminKey>',
+      (Request request, String adminKey) async {
+    final appId = adminKeyToAppId(adminKey);
     final x = await db.getDayBucketedData(appId);
     return Responses.json(x);
   });
 
-  app.get('/appId', (Request request) async {
-    final x = await db.getAvailableAppId();
-    return Responses.json(x);
+  app.get('/keys/pair', (Request request) async {
+    final x = await db.getAvailableKeyPair();
+    final d = ApiKeyPairResponse(appId: x.appId, adminKey: x.adminKey);
+    return Responses.mappableClass(d);
   });
 
-  app.get('/sqlite/<appId>', (Request request, String appId) async {
+  app.get('/keys/admin/<adminKey>', (Request request, String adminKey) async {
+    final appId = adminKeyToAppId(adminKey);
+    final d = ApiKeyPairResponse(appId: appId, adminKey: adminKey);
+    return Responses.mappableClass(d);
+  });
+
+  app.get('/sqlite/<adminKey>', (Request request, String adminKey) async {
+    final appId = adminKeyToAppId(adminKey);
     final f = await db.getSqliteFile(appId);
     if (f == null) {
       return Responses.notFoundSqliteFile();
@@ -55,10 +67,11 @@ void main(List<String> arguments) async {
     }
   });
 
-  app.get('/recovery/<appId>', (Request request, String appId) async {
-    final text = RecoveryFile(appId: appId).toJson();
+  app.get('/recovery/<adminKey>', (Request request, String adminKey) async {
+    final appId = adminKeyToAppId(adminKey);
     final shortAppId = genShortAppId(appId);
-    return Responses.textFile(text, "lukehog-$shortAppId.json");
+    final x = RecoveryFile(adminKey: adminKey, appId: appId);
+    return Responses.textFile(x.toJson(), "lukehog-$shortAppId.json");
   });
 
   final pipeline = Pipeline()

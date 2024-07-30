@@ -11,9 +11,9 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required this.appId});
+  const HomeScreen({super.key, required this.adminKey});
 
-  final String appId;
+  final String adminKey;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -21,7 +21,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   void handleDownloadSqlite() {
-    launchUrl(di.apiClient.getSqliteDownloadUrl(widget.appId));
+    launchUrl(di.apiClient.getSqliteDownloadUrl(widget.adminKey));
   }
 
   void handleShowExampleCode() {

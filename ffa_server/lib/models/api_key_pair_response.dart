@@ -1,13 +1,13 @@
 import 'package:dart_mappable/dart_mappable.dart';
 
-part 'recovery_file.mapper.dart';
+part 'api_key_pair_response.mapper.dart';
 
 @MappableClass()
-class RecoveryFile with RecoveryFileMappable {
+class ApiKeyPairResponse with ApiKeyPairResponseMappable {
   final String adminKey;
   final String appId;
 
-  RecoveryFile({
+  ApiKeyPairResponse({
     required this.adminKey,
     required this.appId,
   });

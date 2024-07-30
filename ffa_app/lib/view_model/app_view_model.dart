@@ -1,4 +1,5 @@
 import 'package:ffa_app/data/app_model.dart';
+import 'package:ffa_app/data/key_pair.dart';
 import 'package:ffa_app/di.dart';
 import 'package:flutter/material.dart';
 
@@ -9,26 +10,48 @@ class AppViewModel extends ValueNotifier<AppModel> {
   late final _prefs = di.sharedPreferences;
 
   /// initializes if needed
-  void setVisibleAppId(String appId) async {
+  void setVisibleAdminKey(String adminKey) async {
     value = value.copyWith(
-      visibleAppId: appId,
-      seenAppIds: {
-        ...value.seenAppIds,
-        appId,
+      visibleAdminKey: adminKey,
+      seenAdminKeys: {
+        ...value.seenAdminKeys,
+        adminKey,
       },
     );
 
-    debugPrint('setVisisbleAppId: $appId');
+    debugPrint('setVisisbleAdminKey: $adminKey');
 
     /// fetch new data
-    _updateData(appId);
+    _updateData(adminKey);
   }
 
-  Future<void> _updateData(String appId) async {
-    value = value.copyWith(appEvents: {
+  Future<KeyPair> getAvailableKeyPair() async {
+    var keyPair = await di.apiClient.getAvailableKeyPair();
+    value = value.copyWith(
+      seenAdminKeys: {...value.seenAdminKeys, keyPair.adminKey},
+      fetchedKeyPairs: {...value.fetchedKeyPairs, keyPair},
+    );
+    return keyPair;
+  }
+
+  Future<void> _updateData(String adminKey) async {
+    final hasAppId = value.visibleAppId != null;
+
+    var x = value;
+
+    if (!hasAppId) {
+      x = x.copyWith(fetchedKeyPairs: {
+        ...x.fetchedKeyPairs,
+        await _api.getKeyPairFromAdminKey(adminKey)
+      });
+    }
+
+    x = x.copyWith(appEvents: {
       ...value.appEvents,
-      appId: await _api.getDayBucketedData(appId),
+      adminKey: await _api.getDayBucketedData(adminKey),
     });
+
+    value = x;
   }
 
   Future<void> initialize() async {
@@ -48,8 +71,8 @@ class AppViewModel extends ValueNotifier<AppModel> {
   }
 
   Future<void> refresh() async {
-    final appId = value.visibleAppId;
-    if (appId == null) return;
-    await _updateData(appId);
+    final adminKey = value.visibleAdminKey;
+    if (adminKey == null) return;
+    await _updateData(adminKey);
   }
 }

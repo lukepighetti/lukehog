@@ -8,19 +8,22 @@ final router = GoRouter(
     GoRoute(
       path: '/',
       redirect: (context, state) async {
-        // get startup appId
-        final appId = di.appViewModel.value.seenAppIds.firstOrNull ??
-            await di.apiClient.getAvailableAppId();
+        // get startup adminKey
+        var adminKey = di.appViewModel.value.seenAdminKeys.firstOrNull;
+        if (adminKey == null) {
+          var keyPair = await di.appViewModel.getAvailableKeyPair();
+          adminKey = keyPair.adminKey;
+        }
 
-        return '/$appId';
+        return '/$adminKey';
       },
     ),
     GoRoute(
-      path: '/:appId',
+      path: '/:adminKey',
       builder: (context, state) {
-        final appId = state.pathParameters['appId']!;
-        di.appViewModel.setVisibleAppId(appId);
-        return HomeScreen(appId: appId);
+        final adminKey = state.pathParameters['adminKey']!;
+        di.appViewModel.setVisibleAdminKey(adminKey);
+        return HomeScreen(adminKey: adminKey);
       },
     ),
   ],

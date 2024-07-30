@@ -19,8 +19,8 @@ class _QuickStartViewState extends State<QuickStartView> {
   var isLoading = false;
 
   void handleDownloadRecoveryFile() {
-    final appId = di.appViewModel.value.visibleAppId!;
-    launchUrl(di.apiClient.getRecoveryDownloadUrl(appId));
+    final adminKey = di.appViewModel.value.visibleAdminKey!;
+    launchUrl(di.apiClient.getRecoveryDownloadUrl(adminKey));
     setState(() {
       didSaveRecoveryFile = true;
     });
@@ -45,16 +45,11 @@ class _QuickStartViewState extends State<QuickStartView> {
 
   @override
   Widget build(BuildContext context) {
-    final appId = di.appViewModel.watch(context).visibleAppId!;
     final hasEvents = di.appViewModel.watch(context).hasEvents;
 
     return Center(
-      child: Container(
-        margin: EdgeInsets.all(24),
-        constraints: BoxConstraints(
-            // maxHeight: 448,
-            // maxWidth: 500 + 48,
-            ),
+      child: Padding(
+        padding: EdgeInsets.all(24),
         child: Card(
           child: Padding(
             padding: const EdgeInsets.all(24),
@@ -99,7 +94,7 @@ class _QuickStartViewState extends State<QuickStartView> {
                     style: context.textBody,
                   ),
                   SizedBox(height: 12),
-                  ExampleSyntaxView(appId: appId),
+                  ExampleSyntaxView(),
                   if (!hasEvents) ...[
                     SizedBox(height: 16),
                     Row(

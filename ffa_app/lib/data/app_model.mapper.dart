@@ -14,6 +14,7 @@ class AppModelMapper extends ClassMapperBase<AppModel> {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = AppModelMapper._());
       EventsRowModelMapper.ensureInitialized();
+      KeyPairMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -21,29 +22,34 @@ class AppModelMapper extends ClassMapperBase<AppModel> {
   @override
   final String id = 'AppModel';
 
-  static String? _$visibleAppId(AppModel v) => v.visibleAppId;
-  static const Field<AppModel, String> _f$visibleAppId =
-      Field('visibleAppId', _$visibleAppId);
-  static Set<String> _$seenAppIds(AppModel v) => v.seenAppIds;
-  static const Field<AppModel, Set<String>> _f$seenAppIds =
-      Field('seenAppIds', _$seenAppIds);
+  static String? _$visibleAdminKey(AppModel v) => v.visibleAdminKey;
+  static const Field<AppModel, String> _f$visibleAdminKey =
+      Field('visibleAdminKey', _$visibleAdminKey);
+  static Set<String> _$seenAdminKeys(AppModel v) => v.seenAdminKeys;
+  static const Field<AppModel, Set<String>> _f$seenAdminKeys =
+      Field('seenAdminKeys', _$seenAdminKeys);
   static Map<String, List<EventsRowModel>> _$appEvents(AppModel v) =>
       v.appEvents;
   static const Field<AppModel, Map<String, List<EventsRowModel>>> _f$appEvents =
       Field('appEvents', _$appEvents);
+  static Set<KeyPair> _$fetchedKeyPairs(AppModel v) => v.fetchedKeyPairs;
+  static const Field<AppModel, Set<KeyPair>> _f$fetchedKeyPairs =
+      Field('fetchedKeyPairs', _$fetchedKeyPairs);
 
   @override
   final MappableFields<AppModel> fields = const {
-    #visibleAppId: _f$visibleAppId,
-    #seenAppIds: _f$seenAppIds,
+    #visibleAdminKey: _f$visibleAdminKey,
+    #seenAdminKeys: _f$seenAdminKeys,
     #appEvents: _f$appEvents,
+    #fetchedKeyPairs: _f$fetchedKeyPairs,
   };
 
   static AppModel _instantiate(DecodingData data) {
     return AppModel(
-        visibleAppId: data.dec(_f$visibleAppId),
-        seenAppIds: data.dec(_f$seenAppIds),
-        appEvents: data.dec(_f$appEvents));
+        visibleAdminKey: data.dec(_f$visibleAdminKey),
+        seenAdminKeys: data.dec(_f$seenAdminKeys),
+        appEvents: data.dec(_f$appEvents),
+        fetchedKeyPairs: data.dec(_f$fetchedKeyPairs));
   }
 
   @override
@@ -99,9 +105,10 @@ abstract class AppModelCopyWith<$R, $In extends AppModel, $Out>
           ObjectCopyWith<$R, List<EventsRowModel>, List<EventsRowModel>>>
       get appEvents;
   $R call(
-      {String? visibleAppId,
-      Set<String>? seenAppIds,
-      Map<String, List<EventsRowModel>>? appEvents});
+      {String? visibleAdminKey,
+      Set<String>? seenAdminKeys,
+      Map<String, List<EventsRowModel>>? appEvents,
+      Set<KeyPair>? fetchedKeyPairs});
   AppModelCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -120,19 +127,22 @@ class _AppModelCopyWithImpl<$R, $Out>
           (v, t) => ObjectCopyWith(v, $identity, t), (v) => call(appEvents: v));
   @override
   $R call(
-          {Object? visibleAppId = $none,
-          Set<String>? seenAppIds,
-          Map<String, List<EventsRowModel>>? appEvents}) =>
+          {Object? visibleAdminKey = $none,
+          Set<String>? seenAdminKeys,
+          Map<String, List<EventsRowModel>>? appEvents,
+          Set<KeyPair>? fetchedKeyPairs}) =>
       $apply(FieldCopyWithData({
-        if (visibleAppId != $none) #visibleAppId: visibleAppId,
-        if (seenAppIds != null) #seenAppIds: seenAppIds,
-        if (appEvents != null) #appEvents: appEvents
+        if (visibleAdminKey != $none) #visibleAdminKey: visibleAdminKey,
+        if (seenAdminKeys != null) #seenAdminKeys: seenAdminKeys,
+        if (appEvents != null) #appEvents: appEvents,
+        if (fetchedKeyPairs != null) #fetchedKeyPairs: fetchedKeyPairs
       }));
   @override
   AppModel $make(CopyWithData data) => AppModel(
-      visibleAppId: data.get(#visibleAppId, or: $value.visibleAppId),
-      seenAppIds: data.get(#seenAppIds, or: $value.seenAppIds),
-      appEvents: data.get(#appEvents, or: $value.appEvents));
+      visibleAdminKey: data.get(#visibleAdminKey, or: $value.visibleAdminKey),
+      seenAdminKeys: data.get(#seenAdminKeys, or: $value.seenAdminKeys),
+      appEvents: data.get(#appEvents, or: $value.appEvents),
+      fetchedKeyPairs: data.get(#fetchedKeyPairs, or: $value.fetchedKeyPairs));
 
   @override
   AppModelCopyWith<$R2, AppModel, $Out2> $chain<$R2, $Out2>(

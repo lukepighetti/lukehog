@@ -137,14 +137,15 @@ class EventDatabase {
     }
   }
 
-  Future<String> getAvailableAppId() async {
-    final appId = genAppId();
+  Future<({String adminKey, String appId})> getAvailableKeyPair() async {
+    final adminKey = genAdminKey();
+    final appId = adminKeyToAppId(adminKey);
     final f = await _getDbFile(appId);
 
     if (await f.isEmpty()) {
-      return appId;
+      return (adminKey: adminKey, appId: appId);
     } else {
-      return getAvailableAppId();
+      return getAvailableKeyPair();
     }
   }
 }
