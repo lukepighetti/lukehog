@@ -16,13 +16,13 @@
             - [x] source code
             - [x] email
             - [x] made with love
-    - [ ] no events state
+    - [x] no events state
         - [x] quick start code example
             - [x] dart
             - [x] javascript
             - [x] curl
         - [x] button to check for events
-        - [ ] download recovery file
+        - [x] download recovery file
     - [x] events state
         - [x] show events bucketed by day
         - [ ] show/hide/order events `v2`

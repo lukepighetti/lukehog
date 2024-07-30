@@ -2,6 +2,7 @@ import 'package:context_watch/context_watch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_syntax_view/flutter_syntax_view.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ExampleSyntaxView extends StatefulWidget {
   const ExampleSyntaxView({super.key, required this.appId});
@@ -17,7 +18,7 @@ class _ExampleSyntaxViewState extends State<ExampleSyntaxView>
   /// Tokyo Night Storm
   final syntaxTheme = SyntaxTheme(
     backgroundColor: const Color(0xFF24283b),
-    baseStyle: TextStyle(fontFamily: 'courier', color: Color(0xFFa9b1d6)),
+    baseStyle: GoogleFonts.inconsolata(color: Color(0xFFa9b1d6), fontSize: 16),
     classStyle: TextStyle(color: Color(0xFF2AC3DE)),
     commentStyle: TextStyle(color: Color(0xFF545C7E)),
     constantStyle: TextStyle(color: Color(0xFFBBC2E0)),
@@ -76,7 +77,7 @@ curl -X POST https://ffa.com/event/${widget.appId} \\
     tabController.watch(context);
 
     return Container(
-      constraints: BoxConstraints(maxWidth: 500),
+      constraints: BoxConstraints(maxWidth: 600),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: syntaxTheme.backgroundColor,
