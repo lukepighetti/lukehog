@@ -39,14 +39,14 @@ class _ExampleSyntaxViewState extends State<ExampleSyntaxView>
 import 'package:http/http.dart' as http;
 
 Future<void> capture(String event, String userId) => http.post(
-      Uri.parse('https://ffa.com/event/$appId'),
+      Uri.parse('https://api.lukehog.com/event/$appId'),
       body: {"event": event, "userId": userId},
     );
 """;
 
     late final javascriptCode = """
 async function capture(event, userId) {
-  await fetch('https://ffa.com/event/$appId', {
+  await fetch('https://api.lukehog.com/event/$appId', {
     method: 'POST',
     body: JSON.stringify({ event, userId })
   });
@@ -54,7 +54,7 @@ async function capture(event, userId) {
 """;
 
     late final curlCode = """
-curl -X POST https://ffa.com/event/$appId \\
+curl -X POST https://api.lukehog.com/event/$appId \\
   --data '{"event":"test_event","userId":"fake_user"}'
 """;
     return [
