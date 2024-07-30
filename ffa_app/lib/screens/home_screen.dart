@@ -1,7 +1,7 @@
 import 'package:ffa_app/di.dart';
 import 'package:ffa_app/extensions.dart';
-import 'package:ffa_app/views/example_syntax_view.dart';
 import 'package:ffa_app/views/made_with_love_footer.dart';
+import 'package:ffa_app/views/quick_start_view.dart';
 import 'package:ffa_app/widgets/logotype.dart';
 import 'package:ffa_app/widgets/tech_preview_banner.dart';
 import 'package:flutter/material.dart';
@@ -19,24 +19,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var didRefresh = false;
-  var isLoading = false;
-
-  void handleTapRefresh() async {
-    setState(() {
-      isLoading = true;
-    });
-
-    await di.appViewModel.refresh();
-
-    await Future.delayed(Duration(milliseconds: 500));
-
-    setState(() {
-      didRefresh = true;
-      isLoading = false;
-    });
-  }
-
   void handleDownloadSqlite() {
     launchUrl(di.apiClient.getSqliteDownloadUrl(widget.appId));
   }
@@ -82,58 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
           fit: StackFit.expand,
           children: [
             if (!hasEvents)
-              Center(
-                child: Container(
-                  margin: EdgeInsets.all(24),
-                  constraints: BoxConstraints(
-                    maxHeight: 448,
-                    maxWidth: 500 + 48,
-                  ),
-                  child: Card(
-                    margin: EdgeInsets.zero,
-                    child: Padding(
-                      padding: const EdgeInsets.all(24),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(
-                            "Quick Start",
-                            style: Theme.of(context).textTheme.headlineLarge,
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            "You need to capture an event to continue.",
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                          SizedBox(height: 24),
-                          ExampleSyntaxView(appId: widget.appId),
-                          SizedBox(height: 24),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  didRefresh
-                                      ? "We haven't received any events yet!"
-                                      : "",
-                                  style: TextStyle(
-                                    color: Theme.of(context).colorScheme.error,
-                                  ),
-                                ),
-                              ),
-                              FilledButton(
-                                onPressed: isLoading ? null : handleTapRefresh,
-                                child: Text(
-                                  didRefresh ? "Try again" : "I sent an event",
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              )
+              QuickStartView()
             else
               DataTable(
                 columns: [

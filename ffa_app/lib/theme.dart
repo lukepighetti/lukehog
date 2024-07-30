@@ -12,9 +12,11 @@ ThemeData appTheme() {
     cardTheme: CardTheme(
       elevation: 10,
       shadowColor: Colors.black26,
+      margin: EdgeInsets.zero,
     ),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
+        padding: EdgeInsets.symmetric(horizontal: 12),
         backgroundColor: _primaryColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4),

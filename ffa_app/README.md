@@ -29,3 +29,5 @@
         - [ ] toggle heatmap on event `v2`
 - [ ] security
     - [ ] separate appId and adminKey
+- [ ] sdk
+- [ ] dogfood

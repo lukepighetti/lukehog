@@ -6,6 +6,7 @@
 - [x] single & batch ingest events
 - [x] save events to individual sqlite databases keyed on appId
 - [x] download sqlite file
+- [ ] download recovery file
 - [x] view table of
     - [x] unique sessions
     - [x] unique users

@@ -1,8 +1,11 @@
+import 'package:ffa_server/extensions.dart';
+import 'package:ffa_server/helpers/generate.dart';
 import 'package:ffa_server/helpers/responses.dart';
 import 'package:ffa_server/middleware/cors_middleware.dart';
 import 'package:ffa_server/middleware/mapper_exception_middleware.dart';
 import 'package:ffa_server/models/api_post_batch.dart';
 import 'package:ffa_server/models/api_post_event.dart';
+import 'package:ffa_server/models/recovery_file.dart';
 import 'package:ffa_server/services/database.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as io;
@@ -50,6 +53,12 @@ void main(List<String> arguments) async {
     } else {
       return Responses.file(f);
     }
+  });
+
+  app.get('/recovery/<appId>', (Request request, String appId) async {
+    final text = RecoveryFile(appId: appId).toJson();
+    final shortAppId = genShortAppId(appId);
+    return Responses.textFile(text, "lukehog-$shortAppId.json");
   });
 
   final pipeline = Pipeline()

@@ -26,6 +26,13 @@ class Responses {
     });
   }
 
+  static Response textFile(String text, String filename) {
+    return Response.ok(text, headers: {
+      HttpHeaders.contentTypeHeader: 'application/octet-stream',
+      HttpHeaders.contentDisposition: 'attachment; filename="$filename"'
+    });
+  }
+
   static Response notFoundSqliteFile() {
     return Response.notFound(
       'create some events before requesting your sqlite file',
