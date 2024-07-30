@@ -3,8 +3,6 @@ name: Deploy ffa_app to Pages
 on:
   push:
     branches: ["main"]
-    paths:
-      - 'ffa_app/**'
 
   workflow_dispatch:
 
