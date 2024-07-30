@@ -73,7 +73,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 columns: [
                   DataColumn(label: Text("Day")),
                   for (final x in state.visibleAppEvents.first.columns.entries)
-                    DataColumn(label: Text(x.key)),
+                    DataColumn(
+                      label: Text(switch (x.key) {
+                        "unique_sessions" => "Sessions",
+                        "unique_users" => "Users",
+                        String x => x,
+                      }),
+                    ),
                 ],
                 rows: [
                   for (final row in state.visibleAppEvents)
