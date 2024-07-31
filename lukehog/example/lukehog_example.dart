@@ -1,7 +1,7 @@
 import 'package:lukehog/lukehog.dart';
 
 void main() {
-  var analytics = Lukehog(appId: "<appId>");
+  var analytics = Lukehog("<appId>");
   analytics.login('alice');
   analytics.appOpen();
   analytics.usedFeatureA();

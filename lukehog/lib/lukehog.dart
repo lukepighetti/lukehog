@@ -85,8 +85,8 @@ class Lukehog {
   /// final analytics = Lukehog("<appId>");
   /// analytics.capture("test_event");
   /// ```
-  Lukehog({
-    required this.appId,
+  Lukehog(
+    this.appId, {
     this.sessionExpiration = const Duration(minutes: 15),
     this.baseUrl = 'https://api.lukehog.com',
     this.debug = false,
