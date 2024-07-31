@@ -23,6 +23,7 @@
 
 ## launch punchlist
 
+- [ ] CORS
 - [ ] handle ffa_data not existing on first start
 - [ ] include ffa_server.service file
 - [ ] Failed to load dynamic library 'libsqlite3.so'

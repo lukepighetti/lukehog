@@ -12,7 +12,10 @@ class EventDatabase {
   final dir = Directory('ffa_data');
 
   Future<void> initialize() async {
-    if (Config.debugMode) await dir.delete(recursive: true);
+    if (Config.debugMode && await dir.exists()) {
+      await dir.delete(recursive: true);
+    }
+
     if (!await dir.exists()) {
       await dir.create();
     }
