@@ -1,5 +1,6 @@
 import 'package:ffa_app/di.dart';
 import 'package:ffa_app/extensions.dart';
+import 'package:ffa_app/services/analytics.dart';
 import 'package:ffa_app/views/made_with_love_footer.dart';
 import 'package:ffa_app/views/quick_start_view.dart';
 import 'package:ffa_app/widgets/fade_in_animation.dart';
@@ -22,6 +23,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   void handleDownloadSqlite() {
     launchUrl(di.apiClient.getSqliteDownloadUrl(widget.adminKey));
+    di.analytics.downloadSqlite();
   }
 
   void handleShowExampleCode() {
@@ -29,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void handleCreateNewProject() {
+    di.analytics.createNewProject();
     di.navigation.showCreateNewProjectDialog();
   }
 

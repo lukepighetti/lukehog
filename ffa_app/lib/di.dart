@@ -1,3 +1,4 @@
+import 'package:ffa_app/services/analytics.dart';
 import 'package:ffa_app/services/api_client.dart';
 import 'package:ffa_app/services/navigation_service.dart';
 import 'package:ffa_app/view_model/app_view_model.dart';
@@ -21,4 +22,6 @@ class _Dependencies {
   late final apiClient = ApiClient();
 
   late final navigation = NavigationService();
+
+  late final analytics = constructAnalytics();
 }

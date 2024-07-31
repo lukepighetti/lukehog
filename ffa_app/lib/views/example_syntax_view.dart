@@ -1,5 +1,6 @@
 import 'package:context_watch/context_watch.dart';
 import 'package:ffa_app/di.dart';
+import 'package:ffa_app/services/analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_syntax_view/flutter_syntax_view.dart';
@@ -36,12 +37,13 @@ class _ExampleSyntaxViewState extends State<ExampleSyntaxView>
 
   List<({String code, Syntax syntax, String title})> code(String appId) {
     late final dartCode = """
-import 'package:http/http.dart' as http;
+import 'package:lukehog/lukehog.dart';
 
-Future<void> capture(String event, String userId) => http.post(
-      Uri.parse('https://api.lukehog.com/event/$appId'),
-      body: {"event": event, "userId": userId},
-    );
+final analytics = Lukehog("$appId", debug: kDebugMode);
+
+extension AnalyticsEvents on Lukehog {
+  void testEvent() => capture("test_event");
+}
 """;
 
     late final javascriptCode = """
@@ -68,6 +70,7 @@ curl -X POST https://api.lukehog.com/event/$appId \\
     final code = this.code(appId)[tabController.index];
     await Clipboard.setData(ClipboardData(text: code.code));
     setState(() => didCopy = true);
+    di.analytics.copyExampleCode();
   }
 
   void handleTabChanged() {

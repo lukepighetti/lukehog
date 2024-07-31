@@ -1,4 +1,5 @@
 import 'package:ffa_app/di.dart';
+import 'package:ffa_app/services/analytics.dart';
 import 'package:ffa_app/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -17,9 +18,8 @@ class _DownloadRecoveryFileViewState extends State<DownloadRecoveryFileView> {
   void handleDownloadRecoveryFile() {
     final adminKey = di.appViewModel.value.visibleAdminKey!;
     launchUrl(di.apiClient.getRecoveryDownloadUrl(adminKey));
-    setState(() {
-      didSaveRecoveryFile = true;
-    });
+    setState(() => didSaveRecoveryFile = true);
+    di.analytics.downloadRecoveryFile();
   }
 
   @override

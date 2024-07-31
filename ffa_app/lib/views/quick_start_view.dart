@@ -1,5 +1,6 @@
 import 'package:context_watch/context_watch.dart';
 import 'package:ffa_app/di.dart';
+import 'package:ffa_app/services/analytics.dart';
 import 'package:ffa_app/theme.dart';
 import 'package:ffa_app/views/download_recovery_file_view.dart';
 import 'package:ffa_app/views/example_syntax_view.dart';
@@ -22,6 +23,7 @@ class _QuickStartViewState extends State<QuickStartView> {
       isLoading = true;
     });
 
+    di.analytics.tapSentEvent();
     await di.appViewModel.refresh();
 
     await Future.delayed(Duration(milliseconds: 500));

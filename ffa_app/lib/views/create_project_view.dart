@@ -1,4 +1,5 @@
 import 'package:ffa_app/di.dart';
+import 'package:ffa_app/services/analytics.dart';
 import 'package:ffa_app/theme.dart';
 import 'package:ffa_app/views/download_recovery_file_view.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class _CreateProjectViewState extends State<CreateProjectView> {
   var stage1 = false;
 
   void handleCopyUrl() {
+    di.analytics.copyProjectUrl();
     Clipboard.setData(ClipboardData(text: ""));
     setState(() => copied = true);
   }

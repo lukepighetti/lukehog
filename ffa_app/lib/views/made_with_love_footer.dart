@@ -1,4 +1,6 @@
 import 'package:ffa_app/assets.dart';
+import 'package:ffa_app/di.dart';
+import 'package:ffa_app/services/analytics.dart';
 import 'package:ffa_app/theme.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,7 @@ class MadeWithLoveFooter extends StatelessWidget {
           icon: Icon(PhosphorIcons.envelopeSimple()),
           onPressed: () {
             launchUrlString('mailto:lukepighetti+lukehog@gmail.com');
-            // Analytics.tapSendEmail();
+            di.analytics.tapSendEmail();
           },
         ),
         Expanded(
@@ -37,7 +39,7 @@ class MadeWithLoveFooter extends StatelessWidget {
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
                       launchUrlString('https://twitter.com/luke_pighetti');
-                      // Analytics.tapViewCreator();
+                      di.analytics.tapViewCreator();
                     },
                 ),
               ],
@@ -50,7 +52,7 @@ class MadeWithLoveFooter extends StatelessWidget {
           icon: Icon(PhosphorIcons.githubLogo()),
           onPressed: () {
             launchUrlString('https://github.com/lukepighetti/lukehog');
-            // Analytics.tapViewRepository();
+            di.analytics.tapViewRepository();
           },
         ),
       ],
