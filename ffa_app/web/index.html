@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -23,16 +24,58 @@
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="ffa_app">
+  <meta name="apple-mobile-web-app-title" content="Lukehog">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
-  <title>ffa_app</title>
+  <!-- Facebook Meta Tags -->
+  <meta property="og:url" content="https://lukehog.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Lukehog">
+  <meta property="og:description" content="Dead simple analytics for Flutter, Dart, and beyond">
+  <meta property="og:image" content="https://lukehog.com/social-card.png">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="lukehog.com/>
+  <meta property=" twitter:url" content="https://lukehog.com/>
+  <meta name=" twitter:title" content="Lukehog>
+  <meta name=" twitter:description" content="Dead simple analytics for Flutter, Dart, and beyond">
+  <meta name="twitter:image" content="https://lukehog.com/social-card.png">
+
+  <title>Lukehog</title>
   <link rel="manifest" href="manifest.json">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .centered-container {
+      display: grid;
+      height: 100vh;
+      place-items: center;
+      background-color: #F8F9FF;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .centered-container {
+        background-color: #121418;
+      }
+    }
+  </style>
+
+  <!-- fix splash image being too small on mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
+  <div class="centered-container">
+    <img src="logotype.png" style="height:60px;" />
+  </div>
   <script src="flutter_bootstrap.js" async></script>
 </body>
+
 </html>
