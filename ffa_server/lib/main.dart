@@ -19,6 +19,10 @@ void main(List<String> arguments) async {
 
   await db.initialize();
 
+  app.get('/health', (Request request) async {
+    return Responses.okEmpty();
+  });
+
   app.post('/event/<appId>', (Request request, String appId) async {
     final body = await request.readAsString();
     final event = ApiPostEventMapper.fromJson(body);
