@@ -28,6 +28,10 @@ class _HomeScreenState extends State<HomeScreen> {
     di.navigation.showExampleCodeDialog();
   }
 
+  void handleCreateNewProject() {
+    di.navigation.showCreateNewProjectDialog();
+  }
+
   @override
   Widget build(BuildContext context) {
     final vm = di.appViewModel..watch(context);
@@ -43,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Row(
               children: [
                 Logotype(),
+                SizedBox(width: 8),
                 Spacer(),
                 if (hasEvents) ...[
                   IconButton(
@@ -55,6 +60,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: Icon(PhosphorIcons.download()),
                     tooltip: "Download SQLite file",
                     onPressed: handleDownloadSqlite,
+                  ),
+                  SizedBox(width: 8),
+                  IconButton.filledTonal(
+                    icon: Icon(PhosphorIcons.plus()),
+                    tooltip: "Create new project",
+                    onPressed: handleCreateNewProject,
                   ),
                 ]
               ],

@@ -9,12 +9,19 @@ final router = GoRouter(
       path: '/',
       redirect: (context, state) async {
         // get startup adminKey
-        var adminKey = di.appViewModel.value.seenAdminKeys.firstOrNull;
+        var adminKey = di.appViewModel.value.seenAdminKeys.lastOrNull;
         if (adminKey == null) {
-          var keyPair = await di.appViewModel.getAvailableKeyPair();
-          adminKey = keyPair.adminKey;
+          return '/new';
         }
 
+        return '/$adminKey';
+      },
+    ),
+    GoRoute(
+      path: '/new',
+      redirect: (context, state) async {
+        var keyPair = await di.appViewModel.getAvailableKeyPair();
+        final adminKey = keyPair.adminKey;
         return '/$adminKey';
       },
     ),

@@ -1,5 +1,7 @@
 import 'package:ffa_app/di.dart';
+import 'package:ffa_app/services/router.dart';
 import 'package:ffa_app/theme.dart';
+import 'package:ffa_app/views/create_project_view.dart';
 import 'package:ffa_app/views/quick_start_view.dart';
 import 'package:flutter/material.dart';
 // import 'package:unfck/di.dart';
@@ -10,17 +12,21 @@ class NavigationService {
 
   BuildContext get context => _navigatorKey.currentContext!;
 
-  // Future<void> pop<T>() {
-  //   return Navigator.of(context).maybePop();
-  // }
-
-  Future<void> showExampleCodeDialog() async {
-    showDialog(context: context, builder: (x) => QuickStartView());
+  Future<void> goToNewProject() async {
+    router.go('/new');
   }
 
-  // Future<ThingModel?> showEditThingDialog({ThingModel? thing}) async {
-  //   return _showDialog(context, EditThingDialog(thing: thing));
-  // }
+  Future<void> showExampleCodeDialog() {
+    return showDialog(context: context, builder: (x) => QuickStartView());
+  }
+
+  Future<void> showCreateNewProjectDialog() {
+    return showDialog(context: context, builder: (x) => CreateProjectView());
+  }
+
+  Future<void> pop<T>() {
+    return Navigator.of(context).maybePop();
+  }
 
   static Future<T?> _showBottomSheet<T>(BuildContext context, Widget child) {
     return showModalBottomSheet<T>(

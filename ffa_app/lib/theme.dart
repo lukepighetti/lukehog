@@ -28,6 +28,7 @@ ThemeData appTheme() {
 
 extension ThemeExtensions on BuildContext {
   Color get colorPrimary => _primaryColor;
+  Color get colorError => Colors.red;
   Color get colorForeground => Theme.of(this).colorScheme.onSurface;
   Color get colorBackground => Theme.of(this).colorScheme.surface;
   Color get colorGrey1 => Theme.of(this).colorScheme.surfaceContainerLowest;

@@ -1,10 +1,10 @@
 import 'package:context_watch/context_watch.dart';
 import 'package:ffa_app/di.dart';
 import 'package:ffa_app/theme.dart';
+import 'package:ffa_app/views/download_recovery_file_view.dart';
 import 'package:ffa_app/views/example_syntax_view.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class QuickStartView extends StatefulWidget {
   const QuickStartView({super.key});
@@ -14,17 +14,8 @@ class QuickStartView extends StatefulWidget {
 }
 
 class _QuickStartViewState extends State<QuickStartView> {
-  var didSaveRecoveryFile = false;
   var didRefresh = false;
   var isLoading = false;
-
-  void handleDownloadRecoveryFile() {
-    final adminKey = di.appViewModel.value.visibleAdminKey!;
-    launchUrl(di.apiClient.getRecoveryDownloadUrl(adminKey));
-    setState(() {
-      didSaveRecoveryFile = true;
-    });
-  }
 
   void handleTapRefresh() async {
     setState(() {
@@ -68,26 +59,7 @@ class _QuickStartViewState extends State<QuickStartView> {
                     style: context.textBody,
                   ),
                   SizedBox(height: 12),
-                  Row(
-                    children: [
-                      FilledButton.icon(
-                        onPressed: handleDownloadRecoveryFile,
-                        icon: Icon(PhosphorIcons.downloadSimple()),
-                        label: Text("lukehog.json"),
-                      ),
-                      SizedBox(width: 16),
-                      Expanded(
-                        child: Text(
-                          didSaveRecoveryFile
-                              ? "Keep it secret, keep it safe!"
-                              : "",
-                          style: TextStyle(
-                            color: context.colorPrimary,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  DownloadRecoveryFileView(),
                   SizedBox(height: 24),
                   Text(
                     "2. Capture an event",
@@ -116,7 +88,7 @@ class _QuickStartViewState extends State<QuickStartView> {
                                 ? "We haven't received any events yet!"
                                 : "",
                             style: TextStyle(
-                              color: Theme.of(context).colorScheme.error,
+                              color: context.colorError,
                             ),
                           ),
                         ),
