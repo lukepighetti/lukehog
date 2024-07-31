@@ -2,7 +2,7 @@ import 'package:ffa_server/config.dart';
 import 'package:ffa_server/helpers/generate.dart';
 import 'package:ffa_server/helpers/responses.dart';
 import 'package:ffa_server/helpers/validation.dart';
-import 'package:ffa_server/middleware/debug_cors_middleware.dart';
+import 'package:ffa_server/middleware/cors_middleware.dart';
 import 'package:ffa_server/middleware/mapper_exception_middleware.dart';
 import 'package:ffa_server/models/api_key_pair_response.dart';
 import 'package:ffa_server/models/api_post_batch.dart';
@@ -11,7 +11,6 @@ import 'package:ffa_server/models/recovery_file.dart';
 import 'package:ffa_server/services/database.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as io;
-import 'package:shelf_helmet/shelf_helmet.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 void main(List<String> arguments) async {
@@ -109,7 +108,7 @@ void main(List<String> arguments) async {
 
   final pipeline = Pipeline()
       .addMiddleware(mapperExceptionMiddleware())
-      .addMiddleware(Config.debugMode ? debugCorsMiddleware() : helmet())
+      .addMiddleware(corsMiddleware())
       .addHandler(app.call);
 
   final server = await io.serve(pipeline, Config.address, Config.port);
