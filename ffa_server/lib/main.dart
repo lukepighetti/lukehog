@@ -9,6 +9,7 @@ import 'package:ffa_server/models/api_post_batch.dart';
 import 'package:ffa_server/models/api_post_event.dart';
 import 'package:ffa_server/models/recovery_file.dart';
 import 'package:ffa_server/services/database.dart';
+import 'package:ffa_server/services/letsencrypt.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as io;
 import 'package:shelf_router/shelf_router.dart';
@@ -111,7 +112,11 @@ void main(List<String> arguments) async {
       .addMiddleware(corsMiddleware())
       .addHandler(app.call);
 
-  final server = await io.serve(pipeline, Config.address, Config.port);
-  print("${Config.address}:${Config.port}");
-  print('serving on ${server.address.address}:${server.port}');
+  if (Config.debugMode) {
+    final server = await io.serve(pipeline, Config.address, Config.port);
+    print("${Config.address}:${Config.port}");
+    print('serving on ${server.address.address}:${server.port}');
+  } else {
+    startSecureServer(pipeline);
+  }
 }
