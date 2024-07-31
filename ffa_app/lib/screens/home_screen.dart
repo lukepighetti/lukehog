@@ -1,6 +1,7 @@
 import 'package:ffa_app/di.dart';
 import 'package:ffa_app/extensions.dart';
 import 'package:ffa_app/services/analytics.dart';
+import 'package:ffa_app/theme.dart';
 import 'package:ffa_app/views/made_with_love_footer.dart';
 import 'package:ffa_app/views/quick_start_view.dart';
 import 'package:ffa_app/widgets/fade_in_animation.dart';
@@ -84,6 +85,8 @@ class _HomeScreenState extends State<HomeScreen> {
               )
             else
               DataTable(
+                dataTextStyle: context.textBody,
+                headingTextStyle: context.textCaption,
                 columns: [
                   DataColumn(label: Text("Day")),
                   for (final x in state.visibleAppEvents.first.columns.entries)

@@ -33,7 +33,8 @@ class _MyAppState extends State<MyApp> {
     return ContextWatch.root(
       child: MaterialApp.router(
         title: 'ffa',
-        theme: appTheme(),
+        theme: appTheme(Brightness.light),
+        darkTheme: appTheme(Brightness.dark),
         debugShowCheckedModeBanner: false,
         routerConfig: router,
       ),

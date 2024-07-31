@@ -3,9 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 const _primaryColor = Colors.deepOrange;
 
-ThemeData appTheme() {
+ThemeData appTheme(Brightness brightness) {
   return ThemeData(
     colorScheme: ColorScheme.fromSeed(
+      brightness: brightness,
       seedColor: _primaryColor,
     ),
     textTheme: GoogleFonts.outfitTextTheme(),
@@ -40,30 +41,36 @@ extension ThemeExtensions on BuildContext {
   TextStyle get textHeadline => GoogleFonts.outfit(
         fontSize: 24,
         fontWeight: FontWeight.w400,
+        color: colorForeground,
       );
 
   TextStyle get textGoalCardTitle => GoogleFonts.outfit(
         fontSize: 18,
         fontWeight: FontWeight.w400,
+        color: colorForeground,
       );
 
   TextStyle get textBody => GoogleFonts.outfit(
         fontSize: 16,
         fontWeight: FontWeight.w400,
+        color: colorForeground,
       );
 
   TextStyle get textButton => GoogleFonts.outfit(
         fontSize: 16,
         fontWeight: FontWeight.w500,
+        color: colorForeground,
       );
 
   TextStyle get textCaption => GoogleFonts.outfit(
         fontSize: 14,
         fontWeight: FontWeight.w400,
+        color: colorForeground,
       );
 
   TextStyle get textForAnts => GoogleFonts.outfit(
         fontSize: 10,
         fontWeight: FontWeight.w400,
+        color: colorForeground,
       );
 }
