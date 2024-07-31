@@ -20,7 +20,7 @@ extension on Lukehog {
   void completedPurchase() => capture('completed_purchase');
 
   void logout() {
-    userId = null;
     capture('logout');
+    useAnonymousUserId();
   }
 }

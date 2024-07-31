@@ -1,6 +1,6 @@
 name: lukehog
 description: Simple analytics for any Flutter platform, Dart environment and beyond
-version: 0.2.0
+version: 0.2.1
 repository: https://github.com/lukepighetti/lukehog
 homepage: https://lukehog.com
 
@@ -18,7 +18,6 @@ environment:
 dependencies:
   http: ^1.2.2
   nanoid2: ^2.0.1
-  retry: ^3.1.2
 
 dev_dependencies:
   lints: ^3.0.0

@@ -56,9 +56,10 @@
 /// ```
 library;
 
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:nanoid2/nanoid2.dart';
-import 'package:retry/retry.dart';
 
 /// Dead simple analytics for any platform
 ///
@@ -90,9 +91,14 @@ class Lukehog {
     this.sessionExpiration = const Duration(minutes: 15),
     this.baseUrl = 'https://api.lukehog.com',
     this.debug = false,
-  });
+    this.anonymousUserId = 'anon',
+  }) : userId = anonymousUserId;
 
-  String? userId;
+  final String anonymousUserId;
+
+  late var userId = anonymousUserId;
+
+  void useAnonymousUserId() => userId = anonymousUserId;
 
   late var _sessionId = nanoid();
 
@@ -106,26 +112,26 @@ class Lukehog {
     }
   }
 
-  /// The event to capture
+  /// Send an event to the Lukehog servers.
+  ///
+  /// Currently uses a best effort online only strategy.
   Future<void> capture(
     String event, {
     Map<String, dynamic> properties = const {},
     DateTime? timestamp,
-  }) {
+  }) async {
     _setSessionIdIfNeeded();
     _lastSent = DateTime.now();
-    return retry(
-      () => http.post(
-        _baseUri.resolve('/event/$appId'),
-        body: {
-          "event": event,
-          "userId": userId,
-          "sessionId": _sessionId,
-          "properties": properties,
-          "timestamp": (timestamp ?? DateTime.now()).toUtc(),
-          "debug": debug,
-        },
-      ),
+    await http.post(
+      _baseUri.resolve('/event/$appId'),
+      body: jsonEncode({
+        "event": event,
+        "userId": userId,
+        "sessionId": _sessionId,
+        "properties": properties,
+        "timestamp": (timestamp ?? DateTime.now()).toUtc().toIso8601String(),
+        "debug": debug,
+      }),
     );
   }
 }
