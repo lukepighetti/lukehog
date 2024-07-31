@@ -6,7 +6,7 @@
 - [x] single & batch ingest events
 - [x] save events to individual sqlite databases keyed on appId
 - [x] download sqlite file
-- [ ] download recovery file
+- [x] download recovery file
 - [x] view table of
     - [x] unique sessions
     - [x] unique users
@@ -29,7 +29,7 @@
 - [d] Failed to load dynamic library 'libsqlite3.so'
 - [x] sql TODOs
 - [x] basic event and batch validation
-- [ ] remove data deleting codepaths
+- [x] remove data deleting codepaths
 - [ ] shelf_letsencrypt
 - [ ] shelf_helmet
 - [ ] shelf_ratelimiter

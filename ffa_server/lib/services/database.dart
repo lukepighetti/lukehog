@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ffa_server/config.dart';
 import 'package:ffa_server/extensions.dart';
 import 'package:ffa_server/helpers/generate.dart';
 import 'package:ffa_server/helpers/strip.dart';
@@ -13,10 +12,6 @@ class EventDatabase {
   final dir = Directory('ffa_data');
 
   Future<void> initialize() async {
-    if (Config.debugMode && await dir.exists()) {
-      await dir.delete(recursive: true);
-    }
-
     if (!await dir.exists()) {
       await dir.create();
     }
