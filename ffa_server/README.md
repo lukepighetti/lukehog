@@ -30,6 +30,7 @@
 - [x] sql TODOs
 - [x] basic event and batch validation
 - [x] remove data deleting codepaths
-- [ ] shelf_letsencrypt
-- [ ] shelf_helmet
+- [d] shelf_letsencrypt
+    - used caddy on server instead
+- [x] shelf_helmet
 - [ ] shelf_ratelimiter

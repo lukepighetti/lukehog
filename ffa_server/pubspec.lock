@@ -406,6 +406,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.2"
+  shelf_helmet:
+    dependency: "direct main"
+    description:
+      name: shelf_helmet
+      sha256: c6f2f936fcd4b91256e98f71071c500a0b7879d5f7cc9803fa2ccf75f4a09343
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.0"
   shelf_packages_handler:
     dependency: transitive
     description:
