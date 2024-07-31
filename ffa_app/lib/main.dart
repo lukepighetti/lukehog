@@ -1,4 +1,5 @@
 import 'package:context_watch/context_watch.dart';
+import 'package:ffa_app/config.dart';
 import 'package:ffa_app/di.dart';
 import 'package:ffa_app/services/router.dart';
 import 'package:ffa_app/theme.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
 void main() async {
-  usePathUrlStrategy();
+  if (Config.spaRoutingAvailable) usePathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
   await di.initialize();
   runApp(const MyApp());
