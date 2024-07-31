@@ -1,6 +1,7 @@
 import 'package:ffa_server/config.dart';
 import 'package:ffa_server/helpers/generate.dart';
 import 'package:ffa_server/helpers/responses.dart';
+import 'package:ffa_server/helpers/validation.dart';
 import 'package:ffa_server/middleware/cors_middleware.dart';
 import 'package:ffa_server/middleware/mapper_exception_middleware.dart';
 import 'package:ffa_server/models/api_key_pair_response.dart';
@@ -21,14 +22,40 @@ void main(List<String> arguments) async {
   app.post('/event/<appId>', (Request request, String appId) async {
     final body = await request.readAsString();
     final event = ApiPostEventMapper.fromJson(body);
+
+    if (!Validation.eventName(event.event)) {
+      return Responses.invalidEventName(event.event);
+    }
+
+    if (!Validation.eventSize(body)) {
+      return Responses.invalidEventSize();
+    }
+
     await db.ingestEvent(appId, event);
     return Responses.okEmpty();
   });
 
   app.post('/batch/<appId>', (Request request, String appId) async {
     final body = await request.readAsString();
+    if (!Validation.batchSize(body)) {
+      return Responses.invalidBatchSize();
+    }
+
     final batch = ApiPostBatchMapper.fromJson(body);
+
+    if (!Validation.batchEventsCount(batch.events)) {
+      return Responses.invalidBatchEventsCount();
+    }
+
+    final batchName = Validation.batchEventsName(batch);
+    if (batchName != null) {
+      return Responses.invalidBatchEventName(batchName.$2, batchName.$1);
+    }
+
+    // TODO: handle partial ingest
+
     await db.ingestBatch(appId, batch.events);
+
     return Responses.okEmpty();
   });
 

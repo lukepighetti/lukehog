@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:ffa_server/config.dart';
 import 'package:ffa_server/extensions.dart';
 import 'package:ffa_server/helpers/generate.dart';
+import 'package:ffa_server/helpers/strip.dart';
 import 'package:ffa_server/models/api_post_event.dart';
 import 'package:sqlite3/sqlite3.dart';
 import 'package:path/path.dart' as p;
@@ -91,10 +92,13 @@ class EventDatabase {
     // TODO: we're getting the file twice
     final db = await _getDb(appId);
 
-    /// TODO: escape this sql, event name could be use for injection attack
+    final sanitizedDistinctEvents = [
+      for (final x in distinctEvents) Strip.eventName(x)
+    ];
+
     final dynamicColumns = [
-      for (final e in distinctEvents)
-        "COUNT(DISTINCT CASE WHEN event = '$e' THEN id END) as $e"
+      for (final e in sanitizedDistinctEvents)
+        "COUNT(DISTINCT CASE WHEN event = '$e' THEN id END) as $e",
     ].join(",\n");
 
     final result = distinctEvents.isEmpty ? [] : db.select('''

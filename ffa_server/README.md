@@ -24,10 +24,12 @@
 ## launch punchlist
 
 - [ ] CORS
-- [ ] handle ffa_data not existing on first start
-- [ ] include ffa_server.service file
-- [ ] Failed to load dynamic library 'libsqlite3.so'
-- [ ] sql TODOs
+- [x] handle ffa_data not existing on first start
+- [d] include ffa_server.service file
+- [d] Failed to load dynamic library 'libsqlite3.so'
+- [x] sql TODOs
+- [x] basic event and batch validation
+- [ ] remove data deleting codepaths
 - [ ] shelf_letsencrypt
 - [ ] shelf_helmet
 - [ ] shelf_ratelimiter
