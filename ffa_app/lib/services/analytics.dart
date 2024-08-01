@@ -1,14 +1,9 @@
-import 'package:flutter/foundation.dart';
+import 'package:ffa_app/di.dart';
 import 'package:lukehog/lukehog.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 Lukehog constructAnalytics() => Lukehog(
       "FKjguL9l7WS1F6pp",
-      debug: kDebugMode,
-      saveString: (key, value) =>
-          SharedPreferences.getInstance().then((x) => x.setString(key, value)),
-      getString: (key) =>
-          SharedPreferences.getInstance().then((x) => x.getString(key)),
+      sharedPreferences: di.sharedPreferences,
     );
 
 extension AnalyticsEvents on Lukehog {
