@@ -24,11 +24,13 @@ dependencies:
   google_fonts: ^6.2.1
   phosphor_flutter: ^2.1.0
   collection: ^1.18.0
-  lukehog: ^0.2.1
+  lukehog: ^0.3.0
 
-dependency_overrides: 
+dependency_overrides:
   shared_preferences_web: ^2.4.0
   url_launcher_web: ^2.3.1
+  # lukehog:
+  #   path: ../lukehog
 
 dev_dependencies:
   flutter_test:

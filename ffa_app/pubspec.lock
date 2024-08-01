@@ -420,10 +420,10 @@ packages:
     dependency: "direct main"
     description:
       name: lukehog
-      sha256: "9e1fe14f80cca211a97d36871f8ef268d0e9490e5505693b78b3daa6a76aa329"
+      sha256: "9cec207e8ec63845c963c1d906123fc79373d763e81acb843e3cee4b4c7e7853"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.1"
+    version: "0.3.0"
   matcher:
     dependency: transitive
     description:

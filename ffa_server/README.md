@@ -1,5 +1,9 @@
 # ffa_server
 
+## status page
+
+https://lukehog.cronitorstatus.com
+
 ## features
 
 - [x] return an unused appId
@@ -20,17 +24,22 @@
 - not cached or performance optimized
 - linux & macos only
 - no LRU for file handlers
+- no shelf_ratelimiter
 
 ## launch punchlist
 
-- [ ] CORS
+- [x] CORS
 - [x] handle ffa_data not existing on first start
-- [d] include ffa_server.service file
-- [d] Failed to load dynamic library 'libsqlite3.so'
 - [x] sql TODOs
 - [x] basic event and batch validation
 - [x] remove data deleting codepaths
-- [d] shelf_letsencrypt
-    - used caddy on server instead
 - [x] shelf_helmet
-- [ ] shelf_ratelimiter
+
+## server items
+
+- [x] Failed to load dynamic library 'libsqlite3.so'
+    - `sudo apt install libsqlite3-dev`
+- [x] SSL via caddy
+    - shelf_letsencrypt issue https://github.com/gmpassos/shelf_letsencrypt/issues/15
+
+https://gist.github.com/lukepighetti/6b6a0b044ab66b917cc5daa553a81574
