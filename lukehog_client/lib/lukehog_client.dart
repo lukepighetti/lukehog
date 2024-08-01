@@ -88,10 +88,10 @@ class LukehogClient {
   /// ```
   LukehogClient(
     this.appId, {
-    this.sessionExpiration = const Duration(minutes: 1),
+    this.sessionExpiration = const Duration(minutes: 15),
     this.baseUrl = 'https://api.lukehog.com',
     this.debug = false,
-    this.saveString,
+    this.setString,
     this.getString,
   });
 
@@ -111,7 +111,7 @@ class LukehogClient {
 
   DateTime? _lastSent;
 
-  final Future<void> Function(String key, String value)? saveString;
+  final Future<void> Function(String key, String value)? setString;
 
   final Future<String?> Function(String key)? getString;
 
@@ -178,7 +178,7 @@ extension _LukehogStorage on LukehogClient {
   static const _lastSentKey = 'lukehog-last-sent';
 
   Future<void> _saveSessionId() async {
-    final fn = saveString;
+    final fn = setString;
     final x = _sessionId;
     if (fn == null || x == null) return;
     await fn(_sessionIdKey, x);
@@ -191,7 +191,7 @@ extension _LukehogStorage on LukehogClient {
   }
 
   Future<void> _saveUserId() async {
-    final fn = saveString;
+    final fn = setString;
     final x = _userId;
     if (fn == null || x == null) return;
     await fn(_userIdKey, x);
@@ -204,7 +204,7 @@ extension _LukehogStorage on LukehogClient {
   }
 
   Future<void> _saveLastSent() async {
-    final fn = saveString;
+    final fn = setString;
     final x = _lastSent;
     if (fn == null || x == null) return;
     await fn(_lastSentKey, x.toIso8601String());
