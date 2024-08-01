@@ -11,7 +11,7 @@ void main() {
 
 extension on Lukehog {
   void login(String userId) {
-    this.userId = userId;
+    setUserId(userId);
     capture('login');
   }
 
@@ -21,6 +21,6 @@ extension on Lukehog {
 
   void logout() {
     capture('logout');
-    useAnonymousUserId();
+    setUserId(null);
   }
 }

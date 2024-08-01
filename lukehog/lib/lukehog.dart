@@ -88,29 +88,32 @@ class Lukehog {
   /// ```
   Lukehog(
     this.appId, {
-    this.sessionExpiration = const Duration(minutes: 15),
+    this.sessionExpiration = const Duration(minutes: 1),
     this.baseUrl = 'https://api.lukehog.com',
     this.debug = false,
-    this.anonymousUserId = 'anon',
-  }) : userId = anonymousUserId;
+    this.saveString,
+    this.getString,
+  });
 
-  final String anonymousUserId;
+  String? _userId;
 
-  late var userId = anonymousUserId;
+  String? get userId => _userId;
 
-  void useAnonymousUserId() => userId = anonymousUserId;
+  void setUserId(String? value) {
+    _userId = value;
+    _setUserIdIfNeeded(force: value == null);
+    _saveUserId();
+  }
 
-  late var _sessionId = nanoid();
+  String? _sessionId;
 
   late final _baseUri = Uri.parse(baseUrl);
 
-  late var _lastSent = DateTime.now();
+  DateTime? _lastSent;
 
-  void _setSessionIdIfNeeded() {
-    if (DateTime.now().difference(_lastSent).abs() > sessionExpiration) {
-      _sessionId = nanoid();
-    }
-  }
+  final Future<void> Function(String key, String value)? saveString;
+
+  final Future<String?> Function(String key)? getString;
 
   /// Send an event to the Lukehog servers.
   ///
@@ -120,8 +123,14 @@ class Lukehog {
     Map<String, dynamic> properties = const {},
     DateTime? timestamp,
   }) async {
-    _setSessionIdIfNeeded();
+    await _setLastSentIfNeeded();
+    await _setSessionIdIfNeeded();
+    await _setUserIdIfNeeded();
+    print('[event] $event: $userId, $_sessionId');
+
     _lastSent = DateTime.now();
+    _saveLastSent();
+
     await http.post(
       _baseUri.resolve('/event/$appId'),
       body: jsonEncode({
@@ -133,5 +142,77 @@ class Lukehog {
         "debug": debug,
       }),
     );
+  }
+}
+
+extension _LukehogSessions on Lukehog {
+  Future<void> _setSessionIdIfNeeded() async {
+    _sessionId ??= await _getSessionId() ?? nanoid();
+
+    if (DateTime.now().difference(_lastSent!).abs() > sessionExpiration) {
+      _sessionId = nanoid();
+    }
+
+    _saveSessionId();
+  }
+
+  Future<void> _setUserIdIfNeeded({bool force = false}) async {
+    if (force) {
+      _userId = ("anon:${nanoid()}");
+    } else {
+      _userId ??= await _getUserId() ?? ("anon:${nanoid()}");
+    }
+
+    _saveUserId();
+  }
+
+  Future<void> _setLastSentIfNeeded() async {
+    _lastSent ??= await _getLastSent() ?? DateTime.now();
+    _saveLastSent();
+  }
+}
+
+extension _LukehogStorage on Lukehog {
+  static const _sessionIdKey = 'lukehog-session-id';
+  static const _userIdKey = 'lukehog-user-id';
+  static const _lastSentKey = 'lukehog-last-sent';
+
+  Future<void> _saveSessionId() async {
+    final fn = saveString;
+    final x = _sessionId;
+    if (fn == null || x == null) return;
+    await fn(_sessionIdKey, x);
+  }
+
+  Future<String?> _getSessionId() async {
+    final fn = getString;
+    if (fn == null) return null;
+    return fn(_sessionIdKey);
+  }
+
+  Future<void> _saveUserId() async {
+    final fn = saveString;
+    final x = _userId;
+    if (fn == null || x == null) return;
+    await fn(_userIdKey, x);
+  }
+
+  Future<String?> _getUserId() async {
+    final fn = getString;
+    if (fn == null) return null;
+    return fn(_userIdKey);
+  }
+
+  Future<void> _saveLastSent() async {
+    final fn = saveString;
+    final x = _lastSent;
+    if (fn == null || x == null) return;
+    await fn(_lastSentKey, x.toIso8601String());
+  }
+
+  Future<DateTime?> _getLastSent() async {
+    final fn = getString;
+    if (fn == null) return null;
+    return DateTime.tryParse(await fn(_lastSentKey) ?? '');
   }
 }

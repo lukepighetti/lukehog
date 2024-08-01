@@ -1,3 +1,7 @@
+## 0.3.0
+
+- add storage
+
 ## 0.2.1
 
 - add Lukehog.useAnonymousUserId()
