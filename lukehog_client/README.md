@@ -19,7 +19,7 @@ Dead simple analytics for frontend, backend, developer tools, and any Flutter ta
 ## Usage
 
 ```dart
-final analytics = Lukehog("<appId>");
+final analytics = LukehogClient("<appId>");
 analytics.capture("test_event");
 ```
 

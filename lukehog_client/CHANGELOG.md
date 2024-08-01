@@ -1,3 +1,7 @@
+## 0.4.1
+
+- docs
+
 ## 0.4.0
 
 - rename constructor argument `saveString` to `setString`
