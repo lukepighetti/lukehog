@@ -7,7 +7,6 @@ Dead simple analytics for frontend, backend, developer tools, and any Flutter ta
 - 1-click export your data as a SQLite database
 - Unique sessions, users, and event counts bucketed by day
 - Focus on what matters
-- Self-host with paid license [contact for info](mailto:lukepighetti+lukehog@gmail.com)
 
 ## Getting started
 

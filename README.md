@@ -1,6 +1,11 @@
-## Features
+
+## Lukehog
 
 Dead simple analytics for frontend, backend, developer tools, and any Flutter target platform.
+
+https://lukehog.com
+
+## Features
 
 - Works on every Flutter target platform
 - No signup required (the link is your login)
@@ -18,7 +23,7 @@ Dead simple analytics for frontend, backend, developer tools, and any Flutter ta
 ## Usage
 
 ```dart
-final analytics = Lukehog("<appId>");
+final analytics = LukehogClient("<appId>");
 analytics.capture("test_event");
 ```
 
