@@ -36,23 +36,25 @@ class _ExampleSyntaxViewState extends State<ExampleSyntaxView>
   var didCopy = false;
 
   List<({String code, Syntax syntax, String title})> code(String appId) {
-    late final dartCode = """
+    late final flutterCode = """
 import 'package:lukehog/lukehog.dart';
 
-final analytics = Lukehog("$appId", debug: kDebugMode);
+final analytics = Lukehog("$appId");
+analytics.capture("test_event");
+""";
 
-extension AnalyticsEvents on Lukehog {
-  void testEvent() => capture("test_event");
-}
+    late final dartCode = """
+import 'package:lukehog_client/lukehog_client.dart';
+
+final analytics = LukehogClient("$appId");
+analytics.capture("test_event");
 """;
 
     late final javascriptCode = """
-async function capture(event, userId) {
-  await fetch('https://api.lukehog.com/event/$appId', {
-    method: 'POST',
-    body: JSON.stringify({ event, userId })
-  });
-}
+await fetch('https://api.lukehog.com/event/$appId', {
+  method: 'POST',
+  body: JSON.stringify({ event, userId })
+});
 """;
 
     late final curlCode = """
@@ -60,6 +62,7 @@ curl -X POST https://api.lukehog.com/event/$appId \\
   --data '{"event":"test_event","userId":"fake_user"}'
 """;
     return [
+      (title: "Flutter", syntax: Syntax.DART, code: flutterCode),
       (title: "Dart", syntax: Syntax.DART, code: dartCode),
       (title: "JavaScript", syntax: Syntax.JAVASCRIPT, code: javascriptCode),
       (title: "curl", syntax: Syntax.YAML, code: curlCode),
