@@ -1,3 +1,7 @@
+## 0.4.1
+
+- depend on `lukehog_client: 0.4.2`
+
 ## 0.4.0
 
 - migrate to a flutter only package, use `lukehog_client` for pure dart projects
