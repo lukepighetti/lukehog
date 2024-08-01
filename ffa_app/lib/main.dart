@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ContextWatch.root(
       child: MaterialApp.router(
-        title: 'ffa',
+        title: 'Lukehog',
         theme: appTheme(Brightness.light),
         darkTheme: appTheme(Brightness.dark),
         debugShowCheckedModeBanner: false,
