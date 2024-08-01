@@ -126,7 +126,6 @@ class LukehogClient {
     await _setLastSentIfNeeded();
     await _setSessionIdIfNeeded();
     await _setUserIdIfNeeded();
-    print('[event] $event: $userId, $_sessionId');
 
     _lastSent = DateTime.now();
     _saveLastSent();

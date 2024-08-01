@@ -1,3 +1,7 @@
+## 0.4.2
+
+- remove internal print statement
+
 ## 0.4.1
 
 - docs
