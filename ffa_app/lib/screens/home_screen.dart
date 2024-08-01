@@ -84,34 +84,45 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: QuickStartView(),
               )
             else
-              DataTable(
-                dataTextStyle: context.textBody,
-                headingTextStyle: context.textCaption,
-                columns: [
-                  DataColumn(label: Text("Day")),
-                  for (final x in state.visibleAppEvents.first.columns.entries)
-                    DataColumn(
-                      label: Text(switch (x.key) {
-                        "unique_sessions" => "Sessions",
-                        "unique_users" => "Users",
-                        String x => x,
-                      }),
-                    ),
-                ],
-                rows: [
-                  for (final row in state.visibleAppEvents)
-                    DataRow(
-                      cells: [
-                        DataCell(
-                          Text(row.day.toYYYYMMDDString()),
-                        ),
-                        for (final cell in row.columns.entries)
-                          DataCell(
-                            Text(cell.value.toString()),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: DataTable(
+                  dataTextStyle: context.textBody,
+                  headingTextStyle: context.textCaption,
+                  columnSpacing: 24,
+                  columns: [
+                    DataColumn(label: Text("Day")),
+                    for (final x
+                        in state.visibleAppEvents.first.columns.entries)
+                      DataColumn(
+                        label: Flexible(
+                          child: Text(
+                            switch (x.key) {
+                              "unique_sessions" => "Sessions",
+                              "unique_users" => "Users",
+                              String x => x,
+                            },
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                      ],
-                    ),
-                ],
+                        ),
+                      ),
+                  ],
+                  rows: [
+                    for (final row in state.visibleAppEvents)
+                      DataRow(
+                        cells: [
+                          DataCell(
+                            Text(row.day.toYYYYMMDDString()),
+                          ),
+                          for (final cell in row.columns.entries)
+                            DataCell(
+                              Text(cell.value.toString()),
+                            ),
+                        ],
+                      ),
+                  ],
+                ),
               ),
           ],
         ),
