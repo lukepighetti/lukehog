@@ -39,6 +39,7 @@ class _ExampleSyntaxViewState extends State<ExampleSyntaxView>
     late final flutterCode = """
 import 'package:lukehog/lukehog.dart';
 
+// Events emitted in debug mode are hidden by default
 final analytics = Lukehog("$appId");
 analytics.capture("test_event");
 """;
