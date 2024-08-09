@@ -40,7 +40,7 @@ class _CreatePixelViewState extends State<CreatePixelView> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'Record events by embedding a magic pixel into a website, GitHub docs, or email.',
+            'Record events by embedding a magic pixel into a website, Markdown file, or email.',
             style: context.textBody,
           ),
           SizedBox(height: 16),
