@@ -1,6 +1,7 @@
-## 0.4.1+1
+## 0.4.1+2
 
 - readme
+- repository link
 
 ## 0.4.1
 
