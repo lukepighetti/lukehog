@@ -1,6 +1,6 @@
 name: lukehog
 description: Dead simple analytics for any Flutter environment
-version: 0.4.1
+version: 0.4.1+1
 homepage: https://lukehog.com
 
 platforms:
