@@ -1,3 +1,7 @@
+## 0.4.2+1
+
+- readme
+
 ## 0.4.2
 
 - remove internal print statement
