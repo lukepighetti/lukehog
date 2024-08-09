@@ -2,10 +2,9 @@ import 'package:ffa_app/di.dart';
 import 'package:ffa_app/services/router.dart';
 import 'package:ffa_app/theme.dart';
 import 'package:ffa_app/views/create_project_view.dart';
+import 'package:ffa_app/views/create_pixel_view.dart';
 import 'package:ffa_app/views/quick_start_view.dart';
 import 'package:flutter/material.dart';
-// import 'package:unfck/di.dart';
-// import 'package:unfck/screens/settings_screen.dart';
 
 class NavigationService {
   late final _navigatorKey = di.navigatorKey;
@@ -22,6 +21,10 @@ class NavigationService {
 
   Future<void> showCreateNewProjectDialog() {
     return showDialog(context: context, builder: (x) => CreateProjectView());
+  }
+
+  Future<void> showCreatePixelDialog() {
+    return _showDialog(context, CreatePixelView(), title: "Create magic pixel");
   }
 
   Future<void> pop<T>() {
@@ -62,7 +65,9 @@ class NavigationService {
                               style: context.textHeadline,
                             ),
                           ),
-                        ),
+                        )
+                      else
+                        Spacer(),
                       IconButton(
                         icon: Icon(Icons.close),
                         onPressed: () => Navigator.of(context).maybePop(),

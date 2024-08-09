@@ -1,3 +1,4 @@
+
 import 'package:ffa_server/config.dart';
 import 'package:ffa_server/helpers/generate.dart';
 import 'package:ffa_server/helpers/responses.dart';
@@ -75,6 +76,24 @@ void main(List<String> arguments) async {
     final appId = adminKeyToAppId(adminKey);
     final x = await db.getDayBucketedData(appId);
     return Responses.json(x);
+  });
+
+  app.get('/pixel/<appId>/<event>',
+      (Request request, String appId, String event) async {
+    final p = request.requestedUri.queryParameters;
+    final e = ApiPostEvent.fromPixelRequest(event, p);
+
+    if (!Validation.eventName(e.event)) {
+      return Responses.invalidEventName(e.event);
+    }
+
+    print(request.requestedUri.toString());
+    if (!Validation.eventSize(request.requestedUri.toString())) {
+      return Responses.invalidEventSize();
+    }
+
+    await db.ingestEvent(appId, e);
+    return Responses.pixel();
   });
 
   app.get('/keys/pair', (Request request) async {

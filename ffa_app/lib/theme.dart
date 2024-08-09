@@ -6,6 +6,7 @@ const _primaryColor = Colors.deepOrange;
 ThemeData appTheme(Brightness brightness) {
   return ThemeData(
     colorScheme: ColorScheme.fromSeed(
+      primary: _primaryColor.shade700,
       brightness: brightness,
       seedColor: _primaryColor,
     ),
@@ -23,6 +24,9 @@ ThemeData appTheme(Brightness brightness) {
           borderRadius: BorderRadius.circular(4),
         ),
       ),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      border: OutlineInputBorder(),
     ),
   );
 }
@@ -71,6 +75,18 @@ extension ThemeExtensions on BuildContext {
   TextStyle get textForAnts => GoogleFonts.outfit(
         fontSize: 10,
         fontWeight: FontWeight.w400,
+        color: colorForeground,
+      );
+
+  TextStyle get textCodeBody => GoogleFonts.inconsolata(
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+        color: colorForeground,
+      );
+
+  TextStyle get textCodeCaption => GoogleFonts.inconsolata(
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
         color: colorForeground,
       );
 }

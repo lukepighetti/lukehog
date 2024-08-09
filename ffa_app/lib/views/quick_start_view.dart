@@ -68,7 +68,7 @@ class _QuickStartViewState extends State<QuickStartView> {
                     style: context.textBody,
                   ),
                   SizedBox(height: 12),
-                  ExampleSyntaxView(),
+                  ExampleSyntaxView.integrationCode(),
                   if (!hasEvents) ...[
                     SizedBox(height: 16),
                     Row(

@@ -1,4 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:ffa_server/helpers/parse.dart';
 
 part 'api_post_event.mapper.dart';
 
@@ -19,4 +20,28 @@ class ApiPostEvent with ApiPostEventMappable {
     required this.timestamp,
     required this.debug,
   });
+
+  static ApiPostEvent fromPixelRequest(
+      String event, Map<String, String> queryParameters) {
+    final p = queryParameters;
+    return ApiPostEvent(
+      event: event,
+      userId: p['userId'] ?? 'pixel',
+      sessionId: p['sessionId'],
+      timestamp: DateTime.tryParse(p['timestamp'] ?? ''),
+      debug: bool.tryParse(p['debug'] ?? ''),
+      properties: {
+        for (final MapEntry(:key, :value) in p.entries)
+          if (key != 'userId' &&
+              key != 'sessionId' &&
+              key != 'timestamp' &&
+              key != 'debug')
+            key: int.tryParse(value) ??
+                bool.tryParse(value) ??
+                double.tryParse(value) ??
+                jsonTryParse(value) ??
+                value
+      },
+    );
+  }
 }

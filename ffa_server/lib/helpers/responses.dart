@@ -72,4 +72,12 @@ class Responses {
       body: r'batch contains too many events, maximum 100. all events rejected',
     );
   }
+
+  static Response pixel() {
+    final b64Transparent1x1Png =
+        "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAwAB/CKVnAAAAABJRU5ErkJggg==";
+    return Response.ok(base64Decode(b64Transparent1x1Png), headers: {
+      HttpHeaders.contentTypeHeader: 'image/png',
+    });
+  }
 }

@@ -27,6 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
     di.analytics.downloadSqlite();
   }
 
+  void handleCreatePixel() {
+    di.navigation.showCreatePixelDialog();
+  }
+
   void handleShowExampleCode() {
     di.navigation.showExampleCodeDialog();
   }
@@ -54,6 +58,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(width: 8),
                 Spacer(),
                 if (hasEvents) ...[
+                  IconButton(
+                    icon: Icon(PhosphorIcons.imageSquare()),
+                    tooltip: "Create magic pixel",
+                    onPressed: handleCreatePixel,
+                  ),
+                  SizedBox(width: 8),
                   IconButton(
                     icon: Icon(PhosphorIcons.code()),
                     tooltip: "Show example code",
