@@ -66,40 +66,40 @@ class ExampleSyntaxView extends StatefulWidget {
                 title: "Flutter",
                 syntax: Syntax.DART,
                 code: """
-                import 'package:lukehog/lukehog.dart';
-                
-                // Events emitted in debug mode are hidden by default
-                final analytics = Lukehog("$appId");
-                analytics.capture("test_event");
-                """,
+import 'package:lukehog/lukehog.dart';
+
+// Events emitted in debug mode are hidden by default
+final analytics = Lukehog("$appId");
+analytics.capture("test_event");
+""",
               ),
               (
                 title: "Dart",
                 syntax: Syntax.DART,
                 code: """
-                import 'package:lukehog_client/lukehog_client.dart';
-                
-                final analytics = LukehogClient("$appId");
-                analytics.capture("test_event");
-                """
+import 'package:lukehog_client/lukehog_client.dart';
+
+final analytics = LukehogClient("$appId");
+analytics.capture("test_event");
+"""
               ),
               (
                 title: "JavaScript",
                 syntax: Syntax.JAVASCRIPT,
                 code: """
-                await fetch('https://api.lukehog.com/event/$appId', {
-                  method: 'POST',
-                  body: JSON.stringify({ event, userId })
-                });
-                """
+await fetch('https://api.lukehog.com/event/$appId', {
+  method: 'POST',
+  body: JSON.stringify({ event, userId })
+});
+"""
               ),
               (
                 title: "curl",
                 syntax: Syntax.YAML,
                 code: """
-                curl -X POST https://api.lukehog.com/event/$appId \\
-                  --data '{"event":"test_event","userId":"fake_user"}'
-                """
+curl -X POST https://api.lukehog.com/event/$appId \\
+  --data '{"event":"test_event","userId":"fake_user"}'
+"""
               ),
             ],
           ),
