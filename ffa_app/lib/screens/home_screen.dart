@@ -156,7 +156,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             for (final cell in row.columns.entries)
                               DataCell(
-                                Flexible(child: Text(cell.value.toString())),
+                                SizedBox(
+                                  width: 0,
+                                  child: Text(cell.value.toString()),
+                                ),
                               ),
                           ],
                         ),
