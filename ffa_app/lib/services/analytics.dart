@@ -13,6 +13,8 @@ extension AnalyticsEvents on Lukehog {
   void createNewProject() => capture("tap_create_new_project");
   void downloadRecoveryFile() => capture("download_recovery_file");
   void downloadSqlite() => capture("download_sqlite");
+  void copySqliteUrl() => capture("copy_sqlite_url");
+  void openSqlime() => capture("open_sqlime");
   void tapSendEmail() => capture("tap_send_email");
   void tapSentEvent() => capture("tap_sent_event");
   void tapViewCreator() => capture("tap_view_creator");

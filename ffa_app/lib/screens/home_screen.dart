@@ -9,8 +9,10 @@ import 'package:ffa_app/widgets/logotype.dart';
 import 'package:ffa_app/widgets/tech_preview_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:context_watch/context_watch.dart';
+import 'package:flutter/services.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.adminKey});
@@ -25,6 +27,18 @@ class _HomeScreenState extends State<HomeScreen> {
   void handleDownloadSqlite() {
     launchUrl(di.apiClient.getSqliteDownloadUrl(widget.adminKey));
     di.analytics.downloadSqlite();
+  }
+
+  void handleCopyUrl() {
+    final x = di.apiClient.getSqliteDownloadUrl(widget.adminKey);
+    Clipboard.setData(ClipboardData(text: x.toString()));
+    di.analytics.copySqliteUrl();
+  }
+
+  void handleOpenSqlime() {
+    final x = di.apiClient.getSqliteDownloadUrl(widget.adminKey);
+    launchUrlString("https://sqlime.org/#$x");
+    di.analytics.openSqlime();
   }
 
   void handleCreatePixel() {
@@ -70,10 +84,23 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: handleShowExampleCode,
                   ),
                   SizedBox(width: 8),
-                  IconButton(
+                  PopupMenuButton(
                     icon: Icon(PhosphorIcons.download()),
-                    tooltip: "Download SQLite file",
-                    onPressed: handleDownloadSqlite,
+                    tooltip: "SQLite file",
+                    itemBuilder: (context) => [
+                      PopupMenuItem(
+                        onTap: handleDownloadSqlite,
+                        child: Text("Download"),
+                      ),
+                      PopupMenuItem(
+                        onTap: handleCopyUrl,
+                        child: Text("Copy URL"),
+                      ),
+                      PopupMenuItem(
+                        onTap: handleOpenSqlime,
+                        child: Text("Open in sqlime.org"),
+                      ),
+                    ],
                   ),
                   SizedBox(width: 8),
                   IconButton.filledTonal(

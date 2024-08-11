@@ -1,4 +1,3 @@
-
 import 'package:ffa_server/config.dart';
 import 'package:ffa_server/helpers/generate.dart';
 import 'package:ffa_server/helpers/responses.dart';
