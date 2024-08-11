@@ -134,6 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       for (final x
                           in state.visibleAppEvents.first.columns.entries)
                         DataColumn(
+                          numeric: true,
                           label: Flexible(
                             child: Text(
                               switch (x.key) {
@@ -141,8 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 "unique_users" => "Users",
                                 String x => x,
                               },
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                             ),
                           ),
                         ),
@@ -152,11 +152,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         DataRow(
                           cells: [
                             DataCell(
-                              Text(row.day.toYYYYMMDDString()),
+                              Text(row.day.toYYYYMMDDString(), maxLines: 1),
                             ),
                             for (final cell in row.columns.entries)
                               DataCell(
-                                Text(cell.value.toString()),
+                                Flexible(child: Text(cell.value.toString())),
                               ),
                           ],
                         ),
