@@ -130,20 +130,33 @@ class _HomeScreenState extends State<HomeScreen> {
                     headingTextStyle: context.textCaption,
                     columnSpacing: 24,
                     columns: [
-                      DataColumn(label: Text("Day")),
+                      DataColumn(
+                        label: SizedBox(
+                          width: 100, // hack fix table clipping
+                          child: Text("Day"),
+                        ),
+                      ),
                       for (final x
                           in state.visibleAppEvents.first.columns.entries)
                         DataColumn(
-                          label: Flexible(
-                            child: Text(
-                              switch (x.key) {
+                          label: Builder(
+                            builder: (context) {
+                              final text = switch (x.key) {
                                 "unique_sessions" => "Sessions",
                                 "unique_users" => "Users",
                                 String x => x,
-                              },
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                              };
+
+                              return SizedBox(
+                                width: text.length *
+                                    8.2, // hack fix table clipping
+                                child: Text(
+                                  text,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.clip,
+                                ),
+                              );
+                            },
                           ),
                         ),
                     ],
