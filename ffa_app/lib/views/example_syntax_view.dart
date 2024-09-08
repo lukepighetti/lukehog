@@ -44,7 +44,7 @@ class ExampleSyntaxView extends StatefulWidget {
               title: "Markdown",
               syntax: Syntax.YAML,
               code: """
-![Magic pixel](http://localhost:8080/pixel/sRywXyCwkH1w2X5W/view_github_repo?debug=false)
+![Magic pixel]($url)
 """
             )
           ],
