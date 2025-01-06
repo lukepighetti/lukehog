@@ -12,6 +12,7 @@ https://lukehog.com
 - 1-click export your data as a SQLite database
 - Unique sessions, users, and event counts bucketed by day
 - Focus on what matters
+- Query in the browser with sqlime.org
 
 ## Getting started
 
