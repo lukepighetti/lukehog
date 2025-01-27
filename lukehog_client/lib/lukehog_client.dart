@@ -144,6 +144,7 @@ class LukehogClient {
         LukehogServerType.lukehog => null,
         LukehogServerType.custom => {
             HttpHeaders.authorizationHeader: "Bearer $appId",
+            HttpHeaders.contentTypeHeader: "application/json",
           },
       },
       body: jsonEncode({
