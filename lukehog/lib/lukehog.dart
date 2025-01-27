@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:lukehog_client/lukehog_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+export 'package:lukehog_client/lukehog_client.dart' show LukehogServerType;
+
 /// Dead simple analytics for any Flutter platform
 ///
 /// ```dart
