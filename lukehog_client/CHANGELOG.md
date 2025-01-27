@@ -1,3 +1,7 @@
+## 0.4.3
+
+- add `LukehogServerType.custom` to support custom backends
+
 ## 0.4.2+1
 
 - readme

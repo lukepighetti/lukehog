@@ -57,6 +57,7 @@
 library;
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:nanoid2/nanoid2.dart';
@@ -77,6 +78,9 @@ class LukehogClient {
   /// The location of the Lukehog server
   final String baseUrl;
 
+  /// Controls the request shape
+  final LukehogServerType serverType;
+
   /// Often set to `kDebugMode` in Flutter
   final bool debug;
 
@@ -90,6 +94,7 @@ class LukehogClient {
     this.appId, {
     this.sessionExpiration = const Duration(minutes: 15),
     this.baseUrl = 'https://api.lukehog.com',
+    this.serverType = LukehogServerType.lukehog,
     this.debug = false,
     this.setString,
     this.getString,
@@ -131,7 +136,16 @@ class LukehogClient {
     _saveLastSent();
 
     await http.post(
-      _baseUri.resolve('/event/$appId'),
+      switch (serverType) {
+        LukehogServerType.lukehog => _baseUri.resolve('/event/$appId'),
+        LukehogServerType.custom => _baseUri,
+      },
+      headers: switch (serverType) {
+        LukehogServerType.lukehog => null,
+        LukehogServerType.custom => {
+            HttpHeaders.authorizationHeader: "Bearer $appId",
+          },
+      },
       body: jsonEncode({
         "event": event,
         "userId": userId,
@@ -214,4 +228,17 @@ extension _LukehogStorage on LukehogClient {
     if (fn == null) return null;
     return DateTime.tryParse(await fn(_lastSentKey) ?? '');
   }
+}
+
+/// Controls the request shape
+enum LukehogServerType {
+  /// POST events to baseUrl/events/{appId}
+  ///
+  /// HEADERS none
+  lukehog,
+
+  /// POST events to baseUrl
+  ///
+  /// HEADERS Authorization: Bearer {appId}
+  custom,
 }

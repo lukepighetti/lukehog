@@ -1,6 +1,6 @@
 name: lukehog
 description: Dead simple analytics for any Flutter environment
-version: 0.4.1+2
+version: 0.4.3
 repository: https://github.com/lukepighetti/lukehog
 homepage: https://lukehog.com
 
@@ -20,7 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  lukehog_client: ^0.4.2
+  lukehog_client: ^0.4.3
   shared_preferences: ^2.3.0
 
 dev_dependencies:

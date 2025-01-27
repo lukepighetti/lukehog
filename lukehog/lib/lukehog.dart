@@ -21,6 +21,7 @@ class Lukehog {
     this.appId, {
     this.sessionExpiration = const Duration(minutes: 15),
     this.baseUrl = 'https://api.lukehog.com',
+    this.serverType = LukehogServerType.lukehog,
     this.debug = kDebugMode,
     this.sharedPreferences,
   });
@@ -30,6 +31,9 @@ class Lukehog {
 
   /// Create a new sessionId after not sending events for this duration
   final Duration sessionExpiration;
+
+  /// Controls the request shape
+  final LukehogServerType serverType;
 
   /// The location of the Lukehog server
   final String baseUrl;
@@ -41,6 +45,7 @@ class Lukehog {
     appId,
     sessionExpiration: sessionExpiration,
     baseUrl: baseUrl,
+    serverType: serverType,
     debug: debug,
     setString: (key, value) async {
       await _prefs().then((x) => x.setString(key, value));
