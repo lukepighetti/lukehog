@@ -1,3 +1,7 @@
+## 0.4.6
+
+- retry 8 times
+
 ## 0.4.5
 
 - add `LukehogServerType.custom` to support custom backends

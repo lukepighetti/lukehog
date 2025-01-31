@@ -1,6 +1,6 @@
 name: lukehog_client
 description: Simple analytics for any Dart environment
-version: 0.4.5
+version: 0.4.6
 repository: https://github.com/lukepighetti/lukehog
 homepage: https://lukehog.com
 

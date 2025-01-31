@@ -1,3 +1,7 @@
+## 0.4.6
+
+- bump `lukehog_client` dependency
+
 ## 0.4.5
 
 - add `LukehogServerType.custom` to support custom backends
