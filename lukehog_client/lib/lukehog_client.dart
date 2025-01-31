@@ -61,6 +61,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:nanoid2/nanoid2.dart';
+import 'package:retry/retry.dart';
 
 /// Dead simple analytics for any platform
 ///
@@ -128,6 +129,7 @@ class LukehogClient {
     Map<String, dynamic> properties = const {},
     DateTime? timestamp,
   }) async {
+    final t = timestamp ?? DateTime.now();
     await _setLastSentIfNeeded();
     await _setSessionIdIfNeeded();
     await _setUserIdIfNeeded();
@@ -135,27 +137,29 @@ class LukehogClient {
     _lastSent = DateTime.now();
     _saveLastSent();
 
-    await http.post(
-      switch (serverType) {
-        LukehogServerType.lukehog => _baseUri.resolve('/event/$appId'),
-        LukehogServerType.custom => _baseUri,
-      },
-      headers: switch (serverType) {
-        LukehogServerType.lukehog => null,
-        LukehogServerType.custom => {
-            HttpHeaders.authorizationHeader: "Bearer $appId",
-            HttpHeaders.contentTypeHeader: "application/json",
-          },
-      },
-      body: jsonEncode({
-        "event": event,
-        "userId": userId,
-        "sessionId": _sessionId,
-        "properties": properties,
-        "timestamp": (timestamp ?? DateTime.now()).toUtc().toIso8601String(),
-        "debug": debug,
-      }),
-    );
+    await retry(() {
+      return http.post(
+        switch (serverType) {
+          LukehogServerType.lukehog => _baseUri.resolve('/event/$appId'),
+          LukehogServerType.custom => _baseUri,
+        },
+        headers: switch (serverType) {
+          LukehogServerType.lukehog => null,
+          LukehogServerType.custom => {
+              HttpHeaders.authorizationHeader: "Bearer $appId",
+              HttpHeaders.contentTypeHeader: "application/json",
+            },
+        },
+        body: jsonEncode({
+          "event": event,
+          "userId": userId,
+          "sessionId": _sessionId,
+          "properties": properties,
+          "timestamp": t.toUtc().toIso8601String(),
+          "debug": debug,
+        }),
+      );
+    });
   }
 }
 
