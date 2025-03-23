@@ -13,6 +13,7 @@ https://lukehog.com
 - Unique sessions, users, and event counts bucketed by day
 - Focus on what matters
 - Query in the browser with sqlime.org
+- OPTIONAL: integrate with pocketbase [guide](https://x.com/luke_pighetti/status/1883905092887417138)
 
 ## Getting started
 
